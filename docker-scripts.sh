@@ -39,28 +39,28 @@ check_docker() {
 # Function to build and run production
 production() {
     print_status "Building and starting production container..."
-    docker compose up --build
+    docker-compose up --build
 }
 
 # Function to build and run development
 development() {
     print_status "Building and starting development container..."
-    docker compose -f docker-compose.dev.yml up --build
+    docker-compose -f docker-compose.dev.yml up --build
 }
 
 # Function to stop containers
 stop() {
     print_status "Stopping containers..."
-    docker compose down
-    docker compose -f docker-compose.dev.yml down
+    docker-compose down
+    docker-compose -f docker-compose.dev.yml down
     print_success "Containers stopped"
 }
 
 # Function to clean up
 clean() {
     print_status "Cleaning up Docker resources..."
-    docker compose down -v --remove-orphans
-    docker compose -f docker-compose.dev.yml down -v --remove-orphans
+    docker-compose down -v --remove-orphans
+    docker-compose -f docker-compose.dev.yml down -v --remove-orphans
     docker system prune -f
     print_success "Cleanup completed"
 }
@@ -68,9 +68,9 @@ clean() {
 # Function to view logs
 logs() {
     if [ "$1" = "dev" ]; then
-        docker compose -f docker-compose.dev.yml logs -f
+        docker-compose -f docker-compose.dev.yml logs -f
     else
-        docker compose logs -f
+        docker-compose logs -f
     fi
 }
 
@@ -78,9 +78,9 @@ logs() {
 rebuild() {
     print_status "Rebuilding without cache..."
     if [ "$1" = "dev" ]; then
-        docker compose -f docker-compose.dev.yml build --no-cache
+        docker-compose -f docker-compose.dev.yml build --no-cache
     else
-        docker compose build --no-cache
+        docker-compose build --no-cache
     fi
     print_success "Rebuild completed"
 }
@@ -88,10 +88,10 @@ rebuild() {
 # Function to show status
 status() {
     print_status "Container status:"
-    docker compose ps
+    docker-compose ps
     echo ""
     print_status "Development container status:"
-    docker compose -f docker-compose.dev.yml ps
+    docker-compose -f docker-compose.dev.yml ps
 }
 
 # Function to show help
