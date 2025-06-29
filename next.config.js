@@ -8,7 +8,7 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
   env: {
-    PORT: 3001,
+    PORT: '3001',
   },
 };
 
