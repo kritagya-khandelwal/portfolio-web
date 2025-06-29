@@ -1,0 +1,22 @@
+# Use the official Node.js runtime as the base image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Set environment variables
+ENV PORT 3001
+ENV HOSTNAME "0.0.0.0"
+
+# Install dependencies
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Expose port
+EXPOSE 3001
+
+# Start development server
+CMD ["npm", "run", "dev"] 

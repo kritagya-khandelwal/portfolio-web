@@ -1,0 +1,338 @@
+{
+  "personal": {
+    "name": "Kritagya Khandelwal",
+    "title": "Software Engineer",
+    "about": "I am currently working in Indian Fintech Unicorn, Yubi. I have contributed to build Yubi's marketplace, I was part of the core team to build the BRE for Yubi. I am a firm believer of self-written quote \"Evolution is randomness seeking betterment\" and therefore often found thinking about unprecedented possibilities.",
+    "email": "kritagya.0398@gmail.com",
+    "phone": "+91 8178638856",
+    "location": "India",
+    "experience": [
+      {
+        "id": "yubi",
+        "company": "Yubi",
+        "position": "Senior Software Engineer",
+        "duration": "July 2022 - Present",
+        "description": "Mentor and build microservices from the ground up using Java, Springboot, Elasticsearch, MongoDB, Temporal, and Kafka. Implemented CQRS flow and adopted GraphQL as the API architecture. Optimized Homepage load time by 5x by introducing GraphQL and reactive/async programming in backend reducing network calls and latency.",
+        "technologies": ["Java", "Springboot", "Elasticsearch", "MongoDB", "Temporal", "Kafka", "GraphQL"],
+        "link": "https://go-yubi.com",
+        "type": "full-time"
+      },
+      {
+        "id": "314e",
+        "company": "314e",
+        "position": "Software Engineer",
+        "duration": "June 2021 - July 2022",
+        "description": "Developed backend APIs using FastAPI (Python) and PostgreSQL; handled message queuing with RabbitMQ. Automated accessibility validation on auto-generated webpages using DOM & CSSOM parsing with Python.",
+        "technologies": ["Python", "FastAPI", "PostgreSQL", "RabbitMQ", "OAuth 2.0", "RBAC"],
+        "link": "https://www.314e.com",
+        "type": "full-time"
+      },
+      {
+        "id": "growthgear",
+        "company": "GrowthGear",
+        "position": "Software Development Intern",
+        "duration": "Dec 2020 - May 2021",
+        "description": "Developed frontend with ReactJS and implemented real-time communication using socket.io. Created server-side APIs with Node.js, ExpressJS, MongoDB, and REST architecture.",
+        "technologies": ["ReactJS", "Node.js", "ExpressJS", "MongoDB", "Socket.io", "Redis"],
+        "link": "https://growthgear.in",
+        "type": "internship"
+      }, {
+        "id": "destiny",
+        "company": "Destiny Design",
+        "position": "Software Development Intern",
+        "duration": "June 2020 - July 2020",
+        "description": "Worked as a full-stack developer. Developed Facebook Instant Game from Scratch. Deployed backend webhook on AWS EC2 instance using apache server. Built Frontend using Javascript, JQuery, DOM with integrating Facebook Instant Games, Messanger APIs to the app, and made the app live for public users.",
+        "technologies": ["Javascript", "JQuery", "Node.js", "AWS EC2", "Facebook APIs"],
+        "link": "https://destinydesign.com",
+        "type": "internship"
+      }, {
+        "id": "airtel",
+        "company": "Airtel",
+        "position": "Software Development Intern",
+        "duration": "June 2019 - July 2019",
+        "description": "Worked on RHEL physical servers. Automated the OS installation with the help of anaconda file, Mount point syncing between two servers for critical data backups. Apache Server installation in RHEL 7 server and hosting a webpage.",
+        "technologies": ["RHEL", "Anaconda", "Apache", "SSH", "Mount-point Syncing"],
+        "link": "https://airtel.com",
+        "type": "internship"
+      }
+    ],
+    "skills": [
+      {
+        "category": "Programming Languages",
+        "technologies": ["Java", "Python", "JavaScript", "C++"]
+      },
+      {
+        "category": "Frameworks",
+        "technologies": ["Springboot", "FastAPI", "ExpressJS", "React", "FastMCP", "Temporal"]
+      },
+      {
+        "category": "Artificial Intelligence",
+        "technologies": ["FastMCP", "LangGraph", "Neural Networks", "Genetic Algorithm"]
+      },
+      {
+        "category": "Databases & Messaging",
+        "technologies": ["MongoDB", "PostgreSQL", "Elasticsearch", "Redis", "Kafka", "RabbitMQ"]
+      },
+      {
+        "category": "Tools & Platform",
+        "technologies": ["Docker", "Git", "AWS", "Jenkins", "Unreal Engine", "Blender"]
+      }
+    ],
+    "social": [
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/kritagya-khandelwal",
+        "icon": "github"
+      },
+      {
+        "platform": "LinkedIn",
+        "url": "https://www.linkedin.com/in/kritagya-khandelwal/",
+        "icon": "linkedin"
+      },
+      {
+        "platform": "Instagram",
+        "url": "https://www.instagram.com/kritagyakhandelwal/",
+        "icon": "instagram"
+      },
+      {
+        "platform": "Twitter",
+        "url": "https://x.com/erraticwonderer",
+        "icon": "twitter"
+      },
+      {
+        "platform": "Facebook",
+        "url": "https://www.facebook.com/kritagya.khandelwal",
+        "icon": "facebook"
+      },
+      {
+        "platform": "AngelList",
+        "url": "https://angel.co/kritagya-khandelwal",
+        "icon": "angellist"
+      }
+    ]
+  },
+  "services": [
+    {
+      "id": "backend",
+      "title": "Backend Development",
+      "description": "I am mostly working on the Backend part of the Software systems. I have working on multiple languages: Java, Python, Javascript and Ruby. Frameworks I have used: SpringBoot, FastAPI, ExpressJS and ROR. I have worked on multiple Database and messaging Queues: Postgres, MongoDB, Elasticsearch, Kafka, RabbitMQ.",
+      "icon": "server",
+      "highlight": true
+    },
+    {
+      "id": "ai",
+      "title": "Artificial Intelligence",
+      "description": "Since my college days I have been very curious about AI and did my major project as well in the same field. where I have used Neural Networks and Genetic Algorithm to simulate Evolution of Ants. Now I am also exploring Agentic AI and created some projects with that as well, more coming.",
+      "icon": "brain",
+      "highlight": true
+    },
+    {
+      "id": "frontend",
+      "title": "Frontend Development",
+      "description": "In my internships I got chance to work on Frontend where I first worked on venila Javascript, JQuery and then worked with sophisticated frameworks like ReactJS. I love doing side projects, I try to present the work once in a while and for that purposes I work Frontend mostly.",
+      "icon": "monitor",
+      "highlight": false
+    },
+    {
+      "id": "mobile",
+      "title": "Mobile Development",
+      "description": "Developed a couple of android apps for flight booking for The Ministry of Aviation under Smart India Hackathon 2019. Also developed a music player app during my training in the first year. Used both java and Kotlin for development. Also, explored react-native a bit",
+      "icon": "smartphone",
+      "highlight": false
+    },
+    {
+      "id": "gaming",
+      "title": "3D Game Development",
+      "description": "Explored my interest in 3-D gaming by simulating my hostel digitally, using Unreal Engine for level development and blender for 3-D object development. Check out the work section to see its demonstration.",
+      "icon": "gamepad-2",
+      "highlight": false
+    }
+  ],
+  "projects": [
+    {
+      "id": "internship-2yr",
+      "title": "RHEL Server Management",
+      "subtitle": "Airtel Internship",
+      "description": "Managed RHEL physical servers and automated OS installation using Anaconda file. Synchronized mount points for critical data backups between servers. Installed and configured Apache server on RHEL 7 to host webpages.",
+      "technologies": ["RHEL", "Anaconda", "Apache", "SSH", "Mount-point Syncing"],
+      "image": "/img/pinternship_2yr.jpg",
+      "pdf": "/docs/internship_cert.pdf",
+      "category": "internship",
+      "featured": false
+    },
+    {
+      "id": "internship-3yr",
+      "title": "Facebook Instant Game",
+      "subtitle": "Destiny Design Internship",
+      "description": "Full-stack development of a Facebook Instant Game from scratch. Deployed backend webhook on AWS EC2 using Apache server, openSSL, and Node.js. Integrated Facebook Instant Games and Messenger APIs.",
+      "technologies": ["JavaScript", "JQuery", "Node.js", "AWS EC2", "Facebook APIs"],
+      "image": "/img/pinternship_3yr.jpg",
+      "pdf": "/docs/internship_cert_3rd_yr.pdf",
+      "video": "/video/demo_fb_game_landscape.mp4",
+      "category": "internship",
+      "featured": false
+    },
+    {
+      "id": "internship-4yr",
+      "title": "Real-time Communication Platform",
+      "subtitle": "GrowthGear Internship",
+      "description": "Developed frontend with ReactJS and implemented real-time communication using socket.io. Created server-side APIs with Node.js, ExpressJS, MongoDB, and REST architecture. Improved backend performance by integrating Redis caching.",
+      "technologies": ["ReactJS", "Node.js", "ExpressJS", "MongoDB", "Socket.io", "Redis"],
+      "image": "/img/pinternship_4yr.jpg",
+      "pdf": "/docs/internship_cert_4th_yr.pdf",
+      "category": "internship",
+      "featured": true
+    },
+    {
+      "id": "documentor-agent",
+      "title": "DocumentorAI",
+      "subtitle": "AI Agent for Documentation",
+      "description": "An AI agent that analyzes codebases and generates comprehensive documentation with layered understanding of project components and their relationships.",
+      "technologies": ["Python", "LangGraph", "AgenticAI"],
+      "image": "/img/pdocumentor_agent.png",
+      "pdf": "/docs/DocumentorAI.pdf",
+      "github": "https://github.com/kritagya-khandelwal/documentor-agent",
+      "category": "personal",
+      "featured": true
+    },
+    {
+      "id": "ae-ant",
+      "title": "Artificial Evolution of Artificial Ant",
+      "subtitle": "AI Simulation Project",
+      "description": "Simulated an artificial environment where an ant navigates to find and eat food. Used Neural Networks and Genetic Algorithm to simulate Evolution of Ants.",
+      "technologies": ["AI", "Neural Networks", "Genetic Algorithm", "Python", "Blender"],
+      "image": "/img/aeAnt.png",
+      "pdf": "/docs/Major_project.pdf",
+      "github": "https://github.com/kritagya-khandelwal/ArtificialEvolutionOfAnt",
+      "demo": "https://www.youtube.com/watch?v=HRsb3pedi08&list=PLB8mFamttkNfrlYAI_HQ0wXDFmejP31Om",
+      "category": "academic",
+      "featured": true
+    },
+    {
+      "id": "muno-python",
+      "title": "Multi-Player Uno Game: Muno",
+      "subtitle": "Python Game Development",
+      "description": "Multi-player Uno game supporting simultaneous players under server-client architecture using TCP protocol. Developed with Python's pygame module and implemented multi-threading.",
+      "technologies": ["Python", "Pygame", "TCP", "Multi-threading"],
+      "image": "/img/pMUNO_Game.jpg",
+      "video": "/video/pMUNO_Game.mp4",
+      "github": "https://github.com/kritagya-khandelwal/M_UNO",
+      "category": "personal",
+      "featured": false
+    },
+    {
+      "id": "course-fair",
+      "title": "CourseFair Platform",
+      "subtitle": "Educational Platform",
+      "description": "A comprehensive educational platform for course management and student interaction.",
+      "technologies": ["ReactJS", "Node.js", "MongoDB", "Socket.io"],
+      "image": "/img/CourseFair.png",
+      "video": "/video/CourseFair.mp4",
+      "category": "personal",
+      "featured": false
+    },
+    {
+      "id": "secrets",
+      "title": "Secrets - Social Platform",
+      "subtitle": "Anonymous Social Network",
+      "description": "An anonymous social networking platform where users can share secrets and thoughts anonymously.",
+      "technologies": ["JavaScript", "JQuery", "Node.js", "MongoDB"],
+      "image": "/img/Secrets.jpg",
+      "video": "/video/Secrets.mp4",
+      "github": "https://github.com/kritagya-khandelwal/Secrets",
+      "category": "personal",
+      "featured": false
+    },
+    {
+      "id": "rcs-android",
+      "title": "Flight Booking Android App",
+      "subtitle": "Smart India Hackathon 2019",
+      "description": "Project done for Ministry of Civil Aviation during Smart India Hackathon 2019. Designed to provide transparency on subsidy distribution ensuring eligibility.",
+      "technologies": ["Java", "Android Studio", "XML", "GIMP"],
+      "image": "/img/pAndroid_app.jpg",
+      "video": "/video/pAndroid_app.mp4",
+      "category": "academic",
+      "featured": false
+    },
+    {
+      "id": "flappy-bird",
+      "title": "Flappy Bird Clone",
+      "subtitle": "Game Development",
+      "description": "A clone of the popular Flappy Bird game developed as a learning project.",
+      "technologies": ["JavaScript", "HTML5 Canvas", "CSS3"],
+      "image": "/img/flappy_bird.png",
+      "video": "/video/FlappyBird.mp4",
+      "github": "https://github.com/kritagya-khandelwal/flappy_bird_learning_AI",
+      "category": "personal",
+      "featured": false
+    },
+    {
+      "id": "unreal-project",
+      "title": "3-D Map of my Hostel: Digital Himgiri",
+      "subtitle": "3D Environment Simulation",
+      "description": "Digital simulation of a hostel environment. Used Unreal Engine 4 for level development and Blender for 3D model creation. Applied real object images for realistic materials.",
+      "technologies": ["Unreal Engine 4", "Blender", "3D Modeling"],
+      "image": "/img/punreal_project.jpg",
+      "video": "/video/punreal_project.mp4",
+      "category": "personal",
+      "featured": true
+    },
+    {
+      "id": "time-table-generator",
+      "title": "Time Table Generator",
+      "subtitle": "Academic Tool",
+      "description": "An automated tool for generating academic timetables with conflict resolution and optimization.",
+      "technologies": ["Python", "Algorithm", "Optimization"],
+      "image": "/img/table.png",
+      "github": "https://github.com/kritagya-khandelwal/TimeTableGenerator",
+      "category": "academic",
+      "featured": false
+    }
+  ],
+  "blogs": [
+    {
+      "id": "spring-security-webflux",
+      "title": "Customizing Spring Security in SpringBoot WebFlux Services",
+      "description": "A comprehensive guide on implementing and customizing Spring Security in reactive SpringBoot WebFlux services, covering authentication, authorization, and security best practices.",
+      "url": "https://medium.com/@kritagya.0398/customizing-spring-security-in-springboot-webflux-services-25013db189c6",
+      "platform": "Medium",
+      "publishedDate": "2024-01-15",
+      "readTime": "8 min read",
+      "tags": ["Spring Security", "WebFlux", "SpringBoot", "Reactive Programming", "Java"],
+      "featured": true
+    },
+    {
+      "id": "microservices-cqrs",
+      "title": "Implementing CQRS Pattern in Microservices Architecture",
+      "description": "Deep dive into Command Query Responsibility Segregation (CQRS) pattern implementation in microservices, with practical examples and performance considerations.",
+      "url": "https://medium.com/@kritagya.0398/implementing-cqrs-pattern-in-microservices-architecture",
+      "platform": "Medium",
+      "publishedDate": "2023-12-20",
+      "readTime": "12 min read",
+      "tags": ["CQRS", "Microservices", "Architecture", "Event Sourcing", "Java"],
+      "featured": false
+    },
+    {
+      "id": "graphql-optimization",
+      "title": "Optimizing GraphQL Performance in Production",
+      "description": "Practical strategies for optimizing GraphQL performance in production environments, including query optimization, caching strategies, and monitoring.",
+      "url": "https://medium.com/@kritagya.0398/optimizing-graphql-performance-in-production",
+      "platform": "Medium",
+      "publishedDate": "2023-11-10",
+      "readTime": "10 min read",
+      "tags": ["GraphQL", "Performance", "Optimization", "Caching", "Monitoring"],
+      "featured": false
+    },
+    {
+      "id": "ai-evolution-simulation",
+      "title": "Simulating Evolution with Neural Networks and Genetic Algorithms",
+      "description": "Exploring the intersection of AI and biology through the simulation of ant evolution using neural networks and genetic algorithms.",
+      "url": "https://medium.com/@kritagya.0398/simulating-evolution-with-neural-networks-and-genetic-algorithms",
+      "platform": "Medium",
+      "publishedDate": "2023-10-05",
+      "readTime": "15 min read",
+      "tags": ["AI", "Neural Networks", "Genetic Algorithms", "Evolution", "Python"],
+      "featured": true
+    }
+  ]
+} 
