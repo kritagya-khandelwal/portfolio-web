@@ -3,8 +3,106 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
+import { ChevronDown, ChevronUp, ExternalLink, Brain, Network, Cpu, Database, Server } from 'lucide-react';
+import { 
+  SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs, 
+  SiPython, SiDjango, SiPostgresql, SiMongodb, SiRedis, 
+  SiDocker, SiKubernetes, SiAmazon, SiGooglecloud, SiGit, 
+  SiGithub, SiFigma, SiAdobexd, SiJira, SiSlack,
+  SiHtml5, SiCss3, SiTailwindcss, SiBootstrap, SiMaterialdesign,
+  SiFirebase, SiMysql, SiGraphql, SiRedux,
+  SiJest, SiCypress, SiWebpack, SiVite, SiNpm,
+  SiCplusplus, SiSpringboot, SiFastapi, SiExpress,
+  SiElasticsearch, SiApachekafka, SiRabbitmq, SiJenkins,
+  SiUnrealengine, SiBlender, SiLangchain
+} from 'react-icons/si';
 import { getPersonalInfo } from '@/lib/data';
+
+// Skill icon mapping
+const skillIcons: { [key: string]: any } = {
+  // Frontend
+  'JavaScript': SiJavascript,
+  'TypeScript': SiTypescript,
+  'React': SiReact,
+  'Next.js': SiNextdotjs,
+  'HTML': SiHtml5,
+  'CSS': SiCss3,
+  'Tailwind CSS': SiTailwindcss,
+  'Bootstrap': SiBootstrap,
+  'Material-UI': SiMaterialdesign,
+  'Redux': SiRedux,
+  
+  // Backend
+  'Node.js': SiNodedotjs,
+  'Python': SiPython,
+  'Django': SiDjango,
+  'GraphQL': SiGraphql,
+  'C++': SiCplusplus,
+  'Springboot': SiSpringboot,
+  'FastAPI': SiFastapi,
+  'ExpressJS': SiExpress,
+  'Express': SiExpress,
+  
+  // Databases
+  'PostgreSQL': SiPostgresql,
+  'MongoDB': SiMongodb,
+  'MySQL': SiMysql,
+  'Redis': SiRedis,
+  'Firebase': SiFirebase,
+  'Elasticsearch': SiElasticsearch,
+  'Kafka': SiApachekafka,
+  'RabbitMQ': SiRabbitmq,
+  
+  // DevOps & Cloud
+  'Docker': SiDocker,
+  'Kubernetes': SiKubernetes,
+  'AWS': SiAmazon,
+  'Google Cloud': SiGooglecloud,
+  'Git': SiGit,
+  'GitHub': SiGithub,
+  'Jenkins': SiJenkins,
+  
+  // Testing & Tools
+  'Jest': SiJest,
+  'Cypress': SiCypress,
+  'Webpack': SiWebpack,
+  'Vite': SiVite,
+  'npm': SiNpm,
+  
+  // Design & Collaboration
+  'Figma': SiFigma,
+  'Adobe XD': SiAdobexd,
+  'Jira': SiJira,
+  'Slack': SiSlack,
+  
+  // AI & ML
+  'LangGraph': SiLangchain,
+  'FastMCP': SiLangchain,
+  'Temporal': SiLangchain,
+  'Neural Networks': Brain,
+  'Genetic Algorithm': Network,
+  
+  // 3D & Gaming
+  'Unreal Engine': SiUnrealengine,
+  'Blender': SiBlender,
+  
+  // Generic fallbacks
+  'Java': Cpu,
+  'RHEL': Server,
+  'Apache': Server,
+  'SSH': Network,
+  'Mount-point Syncing': Database,
+  'Anaconda': Cpu,
+  'JQuery': SiJavascript,
+  'Facebook APIs': Network,
+  'Socket.io': Network,
+  'OAuth 2.0': Network,
+  'RBAC': Network,
+  'AgenticAI': Brain,
+  'Pygame': Cpu,
+  'TCP': Network,
+  'Multi-threading': Cpu,
+};
 
 export default function About() {
   const personalInfo = getPersonalInfo();
@@ -12,6 +110,10 @@ export default function About() {
 
   const fullTimeJobs = personalInfo.experience.filter(exp => exp.type === 'full-time');
   const internships = personalInfo.experience.filter(exp => exp.type === 'internship');
+
+  const getSkillIcon = (skillName: string) => {
+    return skillIcons[skillName] || null;
+  };
 
   return (
     <section id="about" className="py-20 bg-gradient-to-br from-gray-50 to-amber-50">
@@ -85,14 +187,18 @@ export default function About() {
                       {exp.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {exp.technologies.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                      {exp.technologies.map((tech, techIndex) => {
+                        const Icon = getSkillIcon(tech);
+                        return (
+                          <span
+                            key={techIndex}
+                            className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-full flex items-center gap-1"
+                          >
+                            {Icon && <Icon size={12} />}
+                            {tech}
+                          </span>
+                        );
+                      })}
                     </div>
                   </motion.div>
                 ))}
@@ -152,14 +258,18 @@ export default function About() {
                                 {exp.description}
                               </p>
                               <div className="flex flex-wrap gap-1">
-                                {exp.technologies.map((tech, techIndex) => (
-                                  <span
-                                    key={techIndex}
-                                    className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full"
-                                  >
-                                    {tech}
-                                  </span>
-                                ))}
+                                {exp.technologies.map((tech, techIndex) => {
+                                  const Icon = getSkillIcon(tech);
+                                  return (
+                                    <span
+                                      key={techIndex}
+                                      className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full flex items-center gap-1"
+                                    >
+                                      {Icon && <Icon size={10} />}
+                                      {tech}
+                                    </span>
+                                  );
+                                })}
                               </div>
                             </motion.div>
                           ))}
@@ -222,14 +332,18 @@ export default function About() {
                   {skill.category}
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {skill.technologies.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="text-sm bg-amber-100 text-amber-800 px-3 py-1 rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  {skill.technologies.map((tech, techIndex) => {
+                    const Icon = getSkillIcon(tech);
+                    return (
+                      <span
+                        key={techIndex}
+                        className="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded-full flex items-center gap-2 hover:bg-amber-200 transition-colors"
+                      >
+                        {Icon && <Icon size={16} />}
+                        {tech}
+                      </span>
+                    );
+                  })}
                 </div>
               </motion.div>
             ))}

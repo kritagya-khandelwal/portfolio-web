@@ -3,7 +3,7 @@ import { config } from '@/config';
 
 export async function POST(request: NextRequest) {
   try {
-    const { prompt } = await request.json();
+    const { prompt, session_id } = await request.json();
 
     if (!prompt) {
       return NextResponse.json(
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ prompt, session_id }),
     });
 
     if (!response.ok) {

@@ -82,20 +82,20 @@ export default function Services() {
 
         {/* Services Grid */}
         <div className="mb-16">
-          <div className="relative">
+          <div className="relative px-12 lg:px-16">
             {/* Navigation Buttons - Hidden on mobile */}
             <button
               onClick={() => scrollServices('left')}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white transition-all duration-200 hidden md:block"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white hover:shadow-xl transition-all duration-200 hidden lg:flex items-center justify-center border border-gray-200"
             >
-              <ChevronLeft size={24} className="text-gray-700" />
+              <ChevronLeft size={20} className="text-gray-700" />
             </button>
             
             <button
               onClick={() => scrollServices('right')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white transition-all duration-200 hidden md:block"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white hover:shadow-xl transition-all duration-200 hidden lg:flex items-center justify-center border border-gray-200"
             >
-              <ChevronRight size={24} className="text-gray-700" />
+              <ChevronRight size={20} className="text-gray-700" />
             </button>
 
             {/* Services Container */}

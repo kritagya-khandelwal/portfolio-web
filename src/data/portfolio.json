@@ -168,7 +168,7 @@
       "technologies": ["JavaScript", "JQuery", "Node.js", "AWS EC2", "Facebook APIs"],
       "image": "/img/pinternship_3yr.jpg",
       "pdf": "/docs/internship_cert_3rd_yr.pdf",
-      "video": "/video/demo_fb_game_landscape.mp4",
+      "demo": "https://youtu.be/MFfyV_wfVl8",
       "category": "internship",
       "featured": false
     },
@@ -215,8 +215,8 @@
       "description": "Multi-player Uno game supporting simultaneous players under server-client architecture using TCP protocol. Developed with Python's pygame module and implemented multi-threading.",
       "technologies": ["Python", "Pygame", "TCP", "Multi-threading"],
       "image": "/img/pMUNO_Game.jpg",
-      "video": "/video/pMUNO_Game.mp4",
       "github": "https://github.com/kritagya-khandelwal/M_UNO",
+      "demo": "https://youtu.be/-ayEV7xKrQs",
       "category": "personal",
       "featured": false
     },
@@ -227,7 +227,8 @@
       "description": "A comprehensive educational platform for course management and student interaction.",
       "technologies": ["ReactJS", "Node.js", "MongoDB", "Socket.io"],
       "image": "/img/CourseFair.png",
-      "video": "/video/CourseFair.mp4",
+      "github": "https://github.com/kritagya-khandelwal/CourseFair",
+      "demo": "https://youtu.be/mvlsdNvSQMc",
       "category": "personal",
       "featured": false
     },
@@ -238,8 +239,8 @@
       "description": "An anonymous social networking platform where users can share secrets and thoughts anonymously.",
       "technologies": ["JavaScript", "JQuery", "Node.js", "MongoDB"],
       "image": "/img/Secrets.jpg",
-      "video": "/video/Secrets.mp4",
       "github": "https://github.com/kritagya-khandelwal/Secrets",
+      "demo": "https://youtu.be/tS7RNWLOD9A",
       "category": "personal",
       "featured": false
     },
@@ -250,7 +251,7 @@
       "description": "Project done for Ministry of Civil Aviation during Smart India Hackathon 2019. Designed to provide transparency on subsidy distribution ensuring eligibility.",
       "technologies": ["Java", "Android Studio", "XML", "GIMP"],
       "image": "/img/pAndroid_app.jpg",
-      "video": "/video/pAndroid_app.mp4",
+      "demo": "https://youtu.be/P-Mmpb_uovg",
       "category": "academic",
       "featured": false
     },
@@ -261,7 +262,7 @@
       "description": "A clone of the popular Flappy Bird game developed as a learning project.",
       "technologies": ["JavaScript", "HTML5 Canvas", "CSS3"],
       "image": "/img/flappy_bird.png",
-      "video": "/video/FlappyBird.mp4",
+      "demo": "https://youtu.be/Lc88mDFq5sE",
       "github": "https://github.com/kritagya-khandelwal/flappy_bird_learning_AI",
       "category": "personal",
       "featured": false
@@ -273,20 +274,9 @@
       "description": "Digital simulation of a hostel environment. Used Unreal Engine 4 for level development and Blender for 3D model creation. Applied real object images for realistic materials.",
       "technologies": ["Unreal Engine 4", "Blender", "3D Modeling"],
       "image": "/img/punreal_project.jpg",
-      "video": "/video/punreal_project.mp4",
+      "demo": "https://youtu.be/Ta7f_Bp5Tx4",
       "category": "personal",
       "featured": true
-    },
-    {
-      "id": "time-table-generator",
-      "title": "Time Table Generator",
-      "subtitle": "Academic Tool",
-      "description": "An automated tool for generating academic timetables with conflict resolution and optimization.",
-      "technologies": ["Python", "Algorithm", "Optimization"],
-      "image": "/img/table.png",
-      "github": "https://github.com/kritagya-khandelwal/TimeTableGenerator",
-      "category": "academic",
-      "featured": false
     }
   ],
   "blogs": [
@@ -303,14 +293,14 @@
     },
     {
       "id": "microservices-cqrs",
-      "title": "Implementing CQRS Pattern in Microservices Architecture",
+      "title": "CRUD to CQRS: Evolving Your System Design for Fast Reads",
       "description": "Deep dive into Command Query Responsibility Segregation (CQRS) pattern implementation in microservices, with practical examples and performance considerations.",
-      "url": "https://medium.com/@kritagya.0398/implementing-cqrs-pattern-in-microservices-architecture",
+      "url": "https://medium.com/@kritagya.0398/crud-to-cqrs-evolving-your-system-design-for-fast-reads-351d714a368e",
       "platform": "Medium",
-      "publishedDate": "2023-12-20",
-      "readTime": "12 min read",
+      "publishedDate": "2025-07-06",
+      "readTime": "3 min read",
       "tags": ["CQRS", "Microservices", "Architecture", "Event Sourcing", "Java"],
-      "featured": false
+      "featured": true
     },
     {
       "id": "graphql-optimization",
@@ -332,7 +322,7 @@
       "publishedDate": "2023-10-05",
       "readTime": "15 min read",
       "tags": ["AI", "Neural Networks", "Genetic Algorithms", "Evolution", "Python"],
-      "featured": true
+      "featured": false
     }
   ]
 } 

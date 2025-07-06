@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
+import Image from 'next/image';
+import { MessageCircle, X, Send, Bot, User, Maximize2, Minimize2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -70,6 +71,9 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [isCreatingSession, setIsCreatingSession] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -90,6 +94,41 @@ export default function ChatWidget() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Create session when chat is first opened
+  const createSession = async () => {
+    if (sessionId || isCreatingSession) return;
+    
+    setIsCreatingSession(true);
+    try {
+      const response = await fetch('/api/chat/session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSessionId(data.session_id);
+      } else {
+        console.error('Failed to create session');
+        // Continue without session if creation fails
+      }
+    } catch (error) {
+      console.error('Error creating session:', error);
+      // Continue without session if creation fails
+    } finally {
+      setIsCreatingSession(false);
+    }
+  };
+
+  // Create session when chat is opened
+  useEffect(() => {
+    if (isOpen && !sessionId && !isCreatingSession) {
+      createSession();
+    }
+  }, [isOpen, sessionId, isCreatingSession]);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -118,7 +157,10 @@ export default function ChatWidget() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: inputValue }),
+        body: JSON.stringify({ 
+          prompt: inputValue,
+          session_id: sessionId 
+        }),
       });
 
       if (!response.ok) {
@@ -194,6 +236,15 @@ export default function ChatWidget() {
     }
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+    setIsExpanded(false);
+  };
+
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <>
       {/* Chat Toggle Button */}
@@ -203,13 +254,26 @@ export default function ChatWidget() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(true)}
             className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 bg-amber-600 text-white p-3 sm:p-4 rounded-full shadow-lg hover:bg-amber-700 transition-colors duration-200 z-40"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
             <MessageCircle size={20} className="sm:w-6 sm:h-6" />
           </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Backdrop for expanded mode */}
+      <AnimatePresence>
+        {isOpen && isExpanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-40"
+            onClick={handleClose}
+          />
         )}
       </AnimatePresence>
 
@@ -220,27 +284,64 @@ export default function ChatWidget() {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-8rem)] sm:h-[500px] max-w-sm sm:max-w-none bg-white rounded-xl shadow-2xl border border-gray-200 z-50 flex flex-col"
+            className={`
+              fixed z-50 flex flex-col bg-white shadow-2xl border border-gray-200
+              ${isExpanded 
+                ? 'inset-4 sm:inset-8 rounded-xl max-w-4xl max-h-[90vh] mx-auto my-auto' 
+                : 'bottom-4 sm:bottom-6 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-8rem)] sm:h-[500px] max-w-sm sm:max-w-none rounded-xl'
+              }
+            `}
           >
             {/* Header */}
             <div className="bg-amber-600 text-white p-3 sm:p-4 rounded-t-xl flex items-center justify-between">
               <div className="flex items-center gap-2 sm:gap-3">
-                <Bot size={16} className="sm:w-5 sm:h-5" />
-                <h3 className="font-semibold text-sm sm:text-base">Chat with Kritagya's AI</h3>
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-white/20 flex items-center justify-center">
+                  <Image
+                    src="/img/my_ghibily_profile.png"
+                    alt="Kritagya Khandelwal"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="font-semibold text-sm sm:text-base">
+                  {isExpanded ? 'Chat with Kritagya\'s AI - Full Screen' : 'Chat with Kritagya\'s AI'}
+                </h3>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-white/80 hover:text-white transition-colors p-1 rounded-full hover:bg-white/10"
-              >
-                <X size={16} className="sm:w-[18px] sm:h-[18px]" />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={handleExpand}
+                  className="text-white/80 hover:text-white transition-colors p-1 rounded-full hover:bg-white/10"
+                  title={isExpanded ? 'Minimize' : 'Expand'}
+                >
+                  {isExpanded ? (
+                    <Minimize2 size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  ) : (
+                    <Maximize2 size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  )}
+                </button>
+                <button
+                  onClick={handleClose}
+                  className="text-white/80 hover:text-white transition-colors p-1 rounded-full hover:bg-white/10"
+                >
+                  <X size={16} className="sm:w-[18px] sm:h-[18px]" />
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
               {messages.length === 0 && (
                 <div className="text-center text-gray-500 py-6 sm:py-8">
-                  <Bot size={36} className="sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 text-gray-300" />
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden bg-gray-200">
+                    <Image
+                      src="/img/my_ghibily_profile.png"
+                      alt="Kritagya Khandelwal"
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <p className="text-sm sm:text-base">Ask me anything about my work, skills, or projects!</p>
                 </div>
               )}
@@ -253,8 +354,14 @@ export default function ChatWidget() {
                   className={`flex gap-2 sm:gap-3 ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   {!message.isUser && (
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Bot size={12} className="sm:w-4 sm:h-4 text-white" />
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden flex-shrink-0">
+                      <Image
+                        src="/img/my_ghibily_profile.png"
+                        alt="Kritagya Khandelwal"
+                        width={32}
+                        height={32}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   )}
                   
@@ -290,8 +397,14 @@ export default function ChatWidget() {
                   animate={{ opacity: 1 }}
                   className="flex gap-2 sm:gap-3"
                 >
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-amber-500 rounded-full flex items-center justify-center">
-                    <Bot size={12} className="sm:w-4 sm:h-4 text-white" />
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden flex-shrink-0">
+                    <Image
+                      src="/img/my_ghibily_profile.png"
+                      alt="Kritagya Khandelwal"
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="bg-gray-100 p-2 sm:p-3 rounded-lg">
                     <div className="flex space-x-1">
