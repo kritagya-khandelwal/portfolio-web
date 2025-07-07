@@ -1,22 +1,42 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Calendar, Clock, Tag, Star } from 'lucide-react';
+import { ExternalLink, Calendar, Clock, Tag, Star, Search, X } from 'lucide-react';
 import { getBlogs } from '@/lib/data';
 import { Blog } from '@/types/portfolio';
 
 export default function Blogs() {
   const blogs = getBlogs();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const categories = ['all', 'featured', ...Array.from(new Set(blogs.flatMap(blog => blog.tags)))];
+  // Get all unique tags for filtering
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    blogs.forEach(blog => blog.tags.forEach(tag => tags.add(tag)));
+    return Array.from(tags).sort();
+  }, [blogs]);
+
+  const categories = ['all', 'featured', ...allTags];
   
-  const filteredBlogs = blogs.filter(blog => {
-    if (selectedCategory === 'all') return true;
-    if (selectedCategory === 'featured') return blog.featured;
-    return blog.tags.includes(selectedCategory);
-  });
+  // Filter blogs based on search query and selected category
+  const filteredBlogs = useMemo(() => {
+    return blogs.filter(blog => {
+      // Category filter
+      const categoryMatch = selectedCategory === 'all' || 
+                           (selectedCategory === 'featured' && blog.featured) ||
+                           blog.tags.includes(selectedCategory);
+      
+      // Search filter
+      const searchMatch = searchQuery === '' || 
+        blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        blog.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        blog.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      
+      return categoryMatch && searchMatch;
+    });
+  }, [blogs, selectedCategory, searchQuery]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -25,6 +45,13 @@ export default function Blogs() {
       day: 'numeric'
     });
   };
+
+  const clearFilters = () => {
+    setSelectedCategory('all');
+    setSearchQuery('');
+  };
+
+  const hasActiveFilters = selectedCategory !== 'all' || searchQuery !== '';
 
   return (
     <section id="blogs" className="py-20 bg-gray-50">
@@ -44,32 +71,128 @@ export default function Blogs() {
           </p>
         </motion.div>
 
-        {/* Category Filter */}
+        {/* Search and Filter Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12"
+          className="mb-8 sm:mb-12"
         >
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`
-                px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200
-                ${selectedCategory === category
-                  ? 'bg-amber-500 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-amber-50 hover:text-amber-600 border border-gray-200'
-                }
-              `}
-            >
-              {category === 'all' ? 'All Posts' : 
-               category === 'featured' ? 'Featured' : 
-               category}
-            </button>
-          ))}
+          {/* Search Bar */}
+          <div className="relative max-w-md mx-auto mb-6">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <input
+                type="text"
+                placeholder="Search articles, tags, or topics..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <X size={16} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Active Filters Display */}
+          {hasActiveFilters && (
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <span className="text-sm text-gray-600">Active filters:</span>
+              {selectedCategory !== 'all' && (
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">
+                  {selectedCategory === 'featured' ? 'Featured' : selectedCategory}
+                  <button
+                    onClick={() => setSelectedCategory('all')}
+                    className="ml-1 hover:text-amber-900"
+                  >
+                    <X size={12} />
+                  </button>
+                </span>
+              )}
+              {searchQuery && (
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                  "{searchQuery}"
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="ml-1 hover:text-blue-900"
+                  >
+                    <X size={12} />
+                  </button>
+                </span>
+              )}
+              <button
+                onClick={clearFilters}
+                className="text-sm text-gray-500 hover:text-gray-700 underline"
+              >
+                Clear all
+              </button>
+            </div>
+          )}
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            {categories.slice(0, 8).map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`
+                  px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200
+                  ${selectedCategory === category
+                    ? 'bg-amber-500 text-white shadow-lg'
+                    : 'bg-white text-gray-600 hover:bg-amber-50 hover:text-amber-600 border border-gray-200'
+                  }
+                `}
+              >
+                {category === 'all' ? 'All Posts' : 
+                 category === 'featured' ? 'Featured' : 
+                 category}
+              </button>
+            ))}
+            {categories.length > 8 && (
+              <div className="relative group">
+                <button className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium bg-white text-gray-600 hover:bg-amber-50 hover:text-amber-600 border border-gray-200">
+                  More...
+                </button>
+                <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10 min-w-[200px]">
+                  <div className="p-2 max-h-48 overflow-y-auto">
+                    {categories.slice(8).map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        className={`
+                          block w-full text-left px-3 py-2 rounded text-sm hover:bg-amber-50 transition-colors
+                          ${selectedCategory === category ? 'bg-amber-100 text-amber-800' : 'text-gray-700'}
+                        `}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </motion.div>
+
+        {/* Results Count */}
+        {hasActiveFilters && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center mb-6"
+          >
+            <p className="text-gray-600">
+              Found {filteredBlogs.length} article{filteredBlogs.length !== 1 ? 's' : ''}
+            </p>
+          </motion.div>
+        )}
 
         {/* Blogs Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -82,7 +205,7 @@ export default function Blogs() {
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
               className={`
-                bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer
+                bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer relative
                 ${blog.featured ? 'ring-2 ring-amber-200' : ''}
               `}
               onClick={() => window.open(blog.url, '_blank', 'noopener,noreferrer')}
@@ -127,9 +250,9 @@ export default function Blogs() {
                   {formatDate(blog.publishedDate)}
                 </div>
 
-                {/* Tags */}
+                {/* Tags - Show only first 2 tags to reduce clutter */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {blog.tags.slice(0, 3).map((tag) => (
+                  {blog.tags.slice(0, 2).map((tag) => (
                     <span
                       key={tag}
                       className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
@@ -137,9 +260,9 @@ export default function Blogs() {
                       {tag}
                     </span>
                   ))}
-                  {blog.tags.length > 3 && (
+                  {blog.tags.length > 2 && (
                     <span className="text-xs text-gray-400">
-                      +{blog.tags.length - 3} more
+                      +{blog.tags.length - 2} more
                     </span>
                   )}
                 </div>
@@ -164,9 +287,22 @@ export default function Blogs() {
             className="text-center py-12"
           >
             <div className="text-gray-400 mb-4">
-              <Tag size={48} className="mx-auto" />
+              <Search size={48} className="mx-auto" />
             </div>
-            <p className="text-gray-600">No articles found for this category.</p>
+            <p className="text-gray-600 mb-2">
+              {hasActiveFilters 
+                ? "No articles found matching your search criteria." 
+                : "No articles available at the moment."
+              }
+            </p>
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="text-amber-600 hover:text-amber-700 underline"
+              >
+                Clear filters
+              </button>
+            )}
           </motion.div>
         )}
 

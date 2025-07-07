@@ -24,43 +24,38 @@ const iconMap = {
 export default function Services() {
   const services = getServices();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [scrollPosition, setScrollPosition] = useState(0);
+
+  // Calculate how many cards to show per page based on screen size
+  const getCardsPerPage = () => {
+    if (typeof window === 'undefined') return 3; // SSR fallback
+    if (window.innerWidth >= 1280) return 3; // xl screens
+    if (window.innerWidth >= 1024) return 2; // lg screens
+    return 1; // md and below
+  };
+
+  const [cardsPerPage, setCardsPerPage] = useState(getCardsPerPage());
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    const handleResize = () => {
+      setCardsPerPage(getCardsPerPage());
+    };
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % services.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [services.length, isAutoPlaying]);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % services.length);
-    setIsAutoPlaying(false);
+    setCurrentIndex((prev) => (prev + 1) % Math.ceil(services.length / cardsPerPage));
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
-    setIsAutoPlaying(false);
+    setCurrentIndex((prev) => (prev - 1 + Math.ceil(services.length / cardsPerPage)) % Math.ceil(services.length / cardsPerPage));
   };
 
-  const scrollServices = (direction: 'left' | 'right') => {
-    const container = document.getElementById('services-container');
-    if (!container) return;
-
-    const cardWidth = 320; // w-80 = 320px
-    const gap = 24; // gap-6 = 24px
-    const scrollAmount = direction === 'left' ? -(cardWidth + gap) : (cardWidth + gap);
-    
-    setScrollPosition(prev => {
-      const newPosition = prev + scrollAmount;
-      const maxScroll = (services.length - 1) * (cardWidth + gap);
-      return Math.max(0, Math.min(newPosition, maxScroll));
-    });
-  };
+  const totalPages = Math.ceil(services.length / cardsPerPage);
+  const startIndex = currentIndex * cardsPerPage;
+  const endIndex = Math.min(startIndex + cardsPerPage, services.length);
+  const currentServices = services.slice(startIndex, endIndex);
 
   return (
     <section id="services" className="py-20 bg-white">
@@ -82,44 +77,83 @@ export default function Services() {
 
         {/* Services Grid */}
         <div className="mb-16">
-          <div className="relative px-12 lg:px-16">
-            {/* Navigation Buttons - Hidden on mobile */}
-            <button
-              onClick={() => scrollServices('left')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white hover:shadow-xl transition-all duration-200 hidden lg:flex items-center justify-center border border-gray-200"
-            >
-              <ChevronLeft size={20} className="text-gray-700" />
-            </button>
-            
-            <button
-              onClick={() => scrollServices('right')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white hover:shadow-xl transition-all duration-200 hidden lg:flex items-center justify-center border border-gray-200"
-            >
-              <ChevronRight size={20} className="text-gray-700" />
-            </button>
+          {/* Mobile: Grid layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className={`
+                  p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl
+                  ${service.highlight 
+                    ? 'bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-200' 
+                    : 'bg-white border border-gray-200'
+                  }
+                `}
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className={`
+                    p-3 rounded-lg
+                    ${service.highlight 
+                      ? 'bg-amber-500 text-white' 
+                      : 'bg-gray-100 text-gray-700'
+                    }
+                  `}>
+                    {(() => {
+                      const IconComponent = iconMap[service.icon as keyof typeof iconMap];
+                      return IconComponent ? <IconComponent size={24} /> : null;
+                    })()}
+                  </div>
+                  <div>
+                    <h3 className={`
+                      text-lg font-bold
+                      ${service.highlight ? 'text-amber-800' : 'text-gray-900'}
+                    `}>
+                      {service.title}
+                    </h3>
+                    {service.highlight && (
+                      <span className="text-xs font-semibold text-amber-700 bg-amber-200 px-2 py-1 rounded-full">
+                        Specialized
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <p className={`
+                  text-sm leading-relaxed
+                  ${service.highlight ? 'text-amber-900' : 'text-gray-600'}
+                `}>
+                  {service.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
 
-            {/* Services Container */}
-            <div className="overflow-hidden">
-              {/* Mobile: Grid layout */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6">
-                {services.map((service, index) => (
+          {/* Desktop: Paginated grid layout */}
+          <div className="hidden lg:block">
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
+              <AnimatePresence mode="wait">
+                {currentServices.map((service, index) => (
                   <motion.div
                     key={service.id}
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                     className={`
-                      p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl
+                      p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1
                       ${service.highlight 
                         ? 'bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-200' 
                         : 'bg-white border border-gray-200'
                       }
                     `}
                   >
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex items-center gap-4 mb-6">
                       <div className={`
-                        p-3 rounded-lg
+                        p-4 rounded-xl
                         ${service.highlight 
                           ? 'bg-amber-500 text-white' 
                           : 'bg-gray-100 text-gray-700'
@@ -127,91 +161,71 @@ export default function Services() {
                       `}>
                         {(() => {
                           const IconComponent = iconMap[service.icon as keyof typeof iconMap];
-                          return IconComponent ? <IconComponent size={24} /> : null;
+                          return IconComponent ? <IconComponent size={28} /> : null;
                         })()}
                       </div>
                       <div>
                         <h3 className={`
-                          text-lg font-bold
+                          text-xl font-bold mb-2
                           ${service.highlight ? 'text-amber-800' : 'text-gray-900'}
                         `}>
                           {service.title}
                         </h3>
                         {service.highlight && (
-                          <span className="text-xs font-semibold text-amber-700 bg-amber-200 px-2 py-1 rounded-full">
+                          <span className="text-xs font-semibold text-amber-700 bg-amber-200 px-3 py-1 rounded-full">
                             Specialized
                           </span>
                         )}
                       </div>
                     </div>
                     <p className={`
-                      text-sm leading-relaxed
+                      text-base leading-relaxed
                       ${service.highlight ? 'text-amber-900' : 'text-gray-600'}
                     `}>
                       {service.description}
                     </p>
                   </motion.div>
                 ))}
-              </div>
-
-              {/* Desktop: Horizontal scroll layout */}
-              <div 
-                id="services-container"
-                className="hidden lg:flex gap-6 pb-4 transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${scrollPosition}px)` }}
-              >
-                {services.map((service, index) => (
-                  <motion.div
-                    key={service.id}
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className={`
-                      flex-shrink-0 w-80 p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl
-                      ${service.highlight 
-                        ? 'bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-200' 
-                        : 'bg-white border border-gray-200'
-                      }
-                    `}
-                  >
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className={`
-                        p-3 rounded-lg
-                        ${service.highlight 
-                          ? 'bg-amber-500 text-white' 
-                          : 'bg-gray-100 text-gray-700'
-                        }
-                      `}>
-                        {(() => {
-                          const IconComponent = iconMap[service.icon as keyof typeof iconMap];
-                          return IconComponent ? <IconComponent size={24} /> : null;
-                        })()}
-                      </div>
-                      <div>
-                        <h3 className={`
-                          text-lg font-bold
-                          ${service.highlight ? 'text-amber-800' : 'text-gray-900'}
-                        `}>
-                          {service.title}
-                        </h3>
-                        {service.highlight && (
-                          <span className="text-xs font-semibold text-amber-700 bg-amber-200 px-2 py-1 rounded-full">
-                            Specialized
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <p className={`
-                      text-sm leading-relaxed
-                      ${service.highlight ? 'text-amber-900' : 'text-gray-600'}
-                    `}>
-                      {service.description}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
+              </AnimatePresence>
             </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  onClick={prevSlide}
+                  disabled={currentIndex === 0}
+                  className="p-3 bg-white border border-gray-300 rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                
+                {/* Page Indicators */}
+                <div className="flex gap-2">
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentIndex(i)}
+                      className={`
+                        w-3 h-3 rounded-full transition-colors
+                        ${currentIndex === i 
+                          ? 'bg-amber-500' 
+                          : 'bg-gray-300 hover:bg-gray-400'
+                        }
+                      `}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={nextSlide}
+                  disabled={currentIndex === totalPages - 1}
+                  className="p-3 bg-white border border-gray-300 rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
