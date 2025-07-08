@@ -1,27 +1,27 @@
-import Header from '@/components/layout/Header';
-import Hero from '@/components/sections/Hero';
-import Services from '@/components/sections/Services';
+import HeaderWrapper from '@/components/layout/HeaderWrapper';
+import HeroWrapper from '@/components/sections/HeroWrapper';
+import ServicesWrapper from '@/components/sections/ServicesWrapper';
 import About from '@/components/sections/About';
-import Portfolio from '@/components/sections/Portfolio';
+import PortfolioWrapper from '@/components/sections/PortfolioWrapper';
 import Certificates from '@/components/sections/Certificates';
-import Blogs from '@/components/sections/Blogs';
+import BlogsWrapper from '@/components/sections/BlogsWrapper';
 import Footer from '@/components/layout/Footer';
 import ChatWidget from '@/components/features/ChatWidget';
-import FloatingSocialLinks from '@/components/ui/FloatingSocialLinks';
+import FloatingSocialLinksWrapper from '@/components/ui/FloatingSocialLinksWrapper';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-      <Header />
-      <Hero />
-      <Services />
+      <HeaderWrapper />
+      <HeroWrapper />
+      <ServicesWrapper />
       <About />
-      <Portfolio />
+      <PortfolioWrapper />
       <Certificates />
-      <Blogs />
+      <BlogsWrapper />
       <Footer />
       <ChatWidget />
-      <FloatingSocialLinks />
+      <FloatingSocialLinksWrapper />
     </main>
   );
 }

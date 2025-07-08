@@ -1,8 +1,20 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function AnimatedBackground() {
+  const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+  }, []);
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Floating particles */}
@@ -11,13 +23,13 @@ export default function AnimatedBackground() {
           key={i}
           className="absolute w-2 h-2 bg-amber-200/30 dark:bg-amber-400/20 rounded-full"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * (dimensions.width || 1000),
+            y: Math.random() * (dimensions.height || 1000),
             opacity: 0,
           }}
           animate={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * (dimensions.width || 1000),
+            y: Math.random() * (dimensions.height || 1000),
             opacity: [0, 1, 0],
           }}
           transition={{

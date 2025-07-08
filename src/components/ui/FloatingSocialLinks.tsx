@@ -35,15 +35,19 @@ export default function FloatingSocialLinks() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroSection = document.getElementById('home');
-      if (heroSection) {
-        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-        setIsVisible(window.scrollY > heroBottom - 100);
+      if (typeof window !== 'undefined') {
+        const heroSection = document.getElementById('home');
+        if (heroSection) {
+          const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+          setIsVisible(window.scrollY > heroBottom - 100);
+        }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   return (

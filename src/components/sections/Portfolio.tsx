@@ -156,7 +156,7 @@ export default function Portfolio() {
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       {project.demo && project.demo.includes('youtu') ? (
                         <div className="flex items-center gap-2">
-                          <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
+                          <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg bg-amber-500 hover:bg-amber-600 transition-colors">
                             <Play size={20} className="text-white ml-1" />
                           </div>
                           <span className="text-white font-medium text-sm">Watch Demo</span>
@@ -384,7 +384,7 @@ export default function Portfolio() {
                         href={selectedProject.video}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                        className="flex items-center gap-2 px-6 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors"
                       >
                         <Play size={20} />
                         Watch Video

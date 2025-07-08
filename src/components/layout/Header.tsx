@@ -16,34 +16,38 @@ export default function Header() {
   // Handle scroll events for navbar shadow and active section
   useEffect(() => {
     const handleScroll = () => {
-      // Add shadow when scrolled
-      setIsScrolled(window.scrollY > 10);
+      if (typeof window !== 'undefined') {
+        // Add shadow when scrolled
+        setIsScrolled(window.scrollY > 10);
 
-      // Determine active section
-      const sections = ['home', 'about', 'services', 'portfolio', 'certificates', 'blogs'];
-      const scrollPosition = window.scrollY + 200; // Increased offset for better detection
+        // Determine active section
+        const sections = ['home', 'about', 'services', 'portfolio', 'certificates', 'blogs'];
+        const scrollPosition = window.scrollY + 200; // Increased offset for better detection
 
-      let currentSection = 'home';
-      
-      for (let i = 0; i < sections.length; i++) {
-        const section = document.getElementById(sections[i]);
-        if (section) {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-          
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            currentSection = sections[i];
-            break;
+        let currentSection = 'home';
+        
+        for (let i = 0; i < sections.length; i++) {
+          const section = document.getElementById(sections[i]);
+          if (section) {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+              currentSection = sections[i];
+              break;
+            }
           }
         }
+        
+        setActiveSection(currentSection);
       }
-      
-      setActiveSection(currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call once on mount
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Call once on mount
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   // Smooth scroll to section

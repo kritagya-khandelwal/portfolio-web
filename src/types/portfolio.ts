@@ -64,6 +64,7 @@ export interface PersonalInfo {
   email: string;
   phone?: string;
   location?: string;
+  resume?: string;
   experience: Experience[];
   skills: Skill[];
   social: SocialLink[];
