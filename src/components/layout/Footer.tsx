@@ -76,6 +76,9 @@ export default function Footer() {
             <p className="text-gray-400">
               © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
             </p>
+            <p className="text-gray-600 text-xs mt-2 font-mono">
+              Press Ctrl+Shift+D for developer mode
+            </p>
             {/* <p className="text-gray-500 text-sm mt-2">
               Built with Next.js, TypeScript, and Tailwind CSS
             </p> */}

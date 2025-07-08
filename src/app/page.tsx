@@ -8,6 +8,7 @@ import BlogsWrapper from '@/components/sections/BlogsWrapper';
 import Footer from '@/components/layout/Footer';
 import ChatWidget from '@/components/features/ChatWidget';
 import FloatingSocialLinksWrapper from '@/components/ui/FloatingSocialLinksWrapper';
+import DeveloperConsole from '@/components/ui/DeveloperConsole';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <Footer />
       <ChatWidget />
       <FloatingSocialLinksWrapper />
+      <DeveloperConsole />
     </main>
   );
 }
