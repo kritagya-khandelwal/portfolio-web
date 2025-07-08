@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { ExternalLink, Calendar, Clock, Tag, Star, Search, X } from 'lucide-react';
 import { getBlogs } from '@/lib/data';
 import { Blog } from '@/types/portfolio';
@@ -54,7 +55,7 @@ export default function Blogs() {
   const hasActiveFilters = selectedCategory !== 'all' || searchQuery !== '';
 
   return (
-    <section id="blogs" className="py-20 bg-gray-50">
+    <section id="blogs" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,10 +64,10 @@ export default function Blogs() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             My Writings
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Sharing knowledge and insights through technical articles and tutorials
           </p>
         </motion.div>
@@ -82,18 +83,18 @@ export default function Blogs() {
           {/* Search Bar */}
           <div className="relative max-w-md mx-auto mb-6">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={20} />
               <input
                 type="text"
                 placeholder="Search articles, tags, or topics..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 bg-white dark:bg-gray-700"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   <X size={16} />
                 </button>
@@ -104,7 +105,7 @@ export default function Blogs() {
           {/* Active Filters Display */}
           {hasActiveFilters && (
             <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="text-sm text-gray-600">Active filters:</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">Active filters:</span>
               {selectedCategory !== 'all' && (
                 <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">
                   {selectedCategory === 'featured' ? 'Featured' : selectedCategory}
@@ -129,7 +130,7 @@ export default function Blogs() {
               )}
               <button
                 onClick={clearFilters}
-                className="text-sm text-gray-500 hover:text-gray-700 underline"
+                className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 underline"
               >
                 Clear all
               </button>
@@ -146,7 +147,7 @@ export default function Blogs() {
                   px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200
                   ${selectedCategory === category
                     ? 'bg-amber-500 text-white shadow-lg'
-                    : 'bg-white text-gray-600 hover:bg-amber-50 hover:text-amber-600 border border-gray-200'
+                    : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-600 dark:hover:text-amber-400 border border-gray-200 dark:border-gray-600'
                   }
                 `}
               >
@@ -157,18 +158,18 @@ export default function Blogs() {
             ))}
             {categories.length > 8 && (
               <div className="relative group">
-                <button className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium bg-white text-gray-600 hover:bg-amber-50 hover:text-amber-600 border border-gray-200">
+                <button className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-600 dark:hover:text-amber-400 border border-gray-200 dark:border-gray-600">
                   More...
                 </button>
-                <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10 min-w-[200px]">
+                <div className="absolute top-full left-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10 min-w-[200px]">
                   <div className="p-2 max-h-48 overflow-y-auto">
                     {categories.slice(8).map((category) => (
                       <button
                         key={category}
                         onClick={() => setSelectedCategory(category)}
                         className={`
-                          block w-full text-left px-3 py-2 rounded text-sm hover:bg-amber-50 transition-colors
-                          ${selectedCategory === category ? 'bg-amber-100 text-amber-800' : 'text-gray-700'}
+                          block w-full text-left px-3 py-2 rounded text-sm hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors
+                          ${selectedCategory === category ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300' : 'text-gray-700 dark:text-gray-300'}
                         `}
                       >
                         {category}
@@ -181,6 +182,8 @@ export default function Blogs() {
           </div>
         </motion.div>
 
+
+
         {/* Results Count */}
         {hasActiveFilters && (
           <motion.div
@@ -188,7 +191,7 @@ export default function Blogs() {
             animate={{ opacity: 1 }}
             className="text-center mb-6"
           >
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               Found {filteredBlogs.length} article{filteredBlogs.length !== 1 ? 's' : ''}
             </p>
           </motion.div>
@@ -205,47 +208,65 @@ export default function Blogs() {
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
               className={`
-                bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer relative
-                ${blog.featured ? 'ring-2 ring-amber-200' : ''}
+                bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer relative group
+                ${blog.featured ? 'ring-2 ring-amber-200 dark:ring-amber-600' : ''}
               `}
               onClick={() => window.open(blog.url, '_blank', 'noopener,noreferrer')}
             >
-              {/* Featured Badge */}
-              {blog.featured && (
-                <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                    <Star size={12} />
-                    Featured
+              {/* Blog Cover Image */}
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={blog.image}
+                  alt={blog.title}
+                  width={400}
+                  height={300}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Featured Badge */}
+                {blog.featured && (
+                  <div className="absolute top-4 right-4 z-10">
+                    <div className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg">
+                      <Star size={12} />
+                      Featured
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              <div className="p-6">
                 {/* Platform Badge */}
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-semibold text-amber-600 bg-amber-100 px-2 py-1 rounded-full">
+                <div className="absolute bottom-4 left-4 z-10">
+                  <span className="text-xs font-semibold text-white bg-black/70 backdrop-blur-sm px-2 py-1 rounded-full">
                     {blog.platform}
                   </span>
-                  {blog.readTime && (
-                    <div className="flex items-center gap-1 text-gray-500 text-xs">
+                </div>
+
+                {/* Read Time Badge */}
+                {blog.readTime && (
+                  <div className="absolute bottom-4 right-4 z-10">
+                    <div className="flex items-center gap-1 text-white bg-black/70 backdrop-blur-sm px-2 py-1 rounded-full text-xs">
                       <Clock size={12} />
                       {blog.readTime}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="p-6">
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 hover:text-amber-600 transition-colors">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
                   {blog.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
                   {blog.description}
                 </p>
 
                 {/* Date */}
-                <div className="flex items-center gap-1 text-gray-500 text-xs mb-4">
+                <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400 text-xs mb-4">
                   <Calendar size={12} />
                   {formatDate(blog.publishedDate)}
                 </div>
@@ -255,24 +276,24 @@ export default function Blogs() {
                   {blog.tags.slice(0, 2).map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
+                      className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full"
                     >
                       {tag}
                     </span>
                   ))}
                   {blog.tags.length > 2 && (
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-400 dark:text-gray-500">
                       +{blog.tags.length - 2} more
                     </span>
                   )}
                 </div>
 
                 {/* Read More */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <span className="text-amber-600 text-sm font-medium hover:text-amber-700 transition-colors">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <span className="text-amber-600 dark:text-amber-400 text-sm font-medium hover:text-amber-700 dark:hover:text-amber-300 transition-colors">
                     Read Article
                   </span>
-                  <ExternalLink size={16} className="text-gray-400" />
+                  <ExternalLink size={16} className="text-gray-400 dark:text-gray-500" />
                 </div>
               </div>
             </motion.article>
@@ -286,10 +307,10 @@ export default function Blogs() {
             animate={{ opacity: 1 }}
             className="text-center py-12"
           >
-            <div className="text-gray-400 mb-4">
+            <div className="text-gray-400 dark:text-gray-500 mb-4">
               <Search size={48} className="mx-auto" />
             </div>
-            <p className="text-gray-600 mb-2">
+            <p className="text-gray-600 dark:text-gray-300 mb-2">
               {hasActiveFilters 
                 ? "No articles found matching your search criteria." 
                 : "No articles available at the moment."
@@ -298,7 +319,7 @@ export default function Blogs() {
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="text-amber-600 hover:text-amber-700 underline"
+                className="text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 underline"
               >
                 Clear filters
               </button>

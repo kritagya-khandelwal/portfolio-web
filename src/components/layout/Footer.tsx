@@ -16,7 +16,7 @@ export default function Footer() {
   const personalInfo = getPersonalInfo();
 
   return (
-    <footer id="contact" className="bg-gray-900 text-white py-16">
+    <footer className="bg-gray-900 dark:bg-gray-950 text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <motion.div
@@ -52,7 +52,7 @@ export default function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-amber-400 transition-colors duration-200 p-2 rounded-full hover:bg-gray-800"
+                  className="text-gray-400 hover:text-amber-400 transition-colors duration-200 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-900"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}

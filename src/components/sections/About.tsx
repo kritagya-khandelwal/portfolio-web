@@ -116,7 +116,7 @@ export default function About() {
   };
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-gray-50 to-amber-50">
+    <section id="about" className="py-20 bg-gradient-to-br from-gray-50 to-amber-50 dark:from-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -125,7 +125,7 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Who I am
           </h2>
           <p className="text-xl text-amber-600 font-semibold">
@@ -141,14 +141,14 @@ export default function About() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
+              <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                 {personalInfo.about}
               </p>
 
               {/* Experience */}
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Experience</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Experience</h3>
                 
                 {/* Full-time Jobs */}
                 {fullTimeJobs.map((exp, index) => (
@@ -161,10 +161,10 @@ export default function About() {
                     className="border-l-4 border-amber-500 pl-6"
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <h4 className="text-lg font-semibold text-gray-900">
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
                         {exp.position}
                       </h4>
-                      <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                      <span className="text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
                         {exp.duration}
                       </span>
                     </div>
@@ -183,7 +183,7 @@ export default function About() {
                         </a>
                       )}
                     </div>
-                    <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                    <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-3">
                       {exp.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -192,7 +192,7 @@ export default function About() {
                         return (
                           <span
                             key={techIndex}
-                            className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-full flex items-center gap-1"
+                            className="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 px-2 py-1 rounded-full flex items-center gap-1"
                           >
                             {Icon && <Icon size={12} />}
                             {tech}
@@ -208,7 +208,7 @@ export default function About() {
                   <div className="border-t border-gray-200 pt-6">
                     <button
                       onClick={() => setShowInternships(!showInternships)}
-                      className="flex items-center gap-2 text-lg font-semibold text-gray-700 hover:text-amber-600 transition-colors mb-4"
+                      className="flex items-center gap-2 text-lg font-semibold text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors mb-4"
                     >
                       {showInternships ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                       Internships ({internships.length})
@@ -229,18 +229,18 @@ export default function About() {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ duration: 0.4, delay: index * 0.1 }}
-                              className="border-l-4 border-gray-300 pl-4 ml-2"
+                              className="border-l-4 border-gray-300 dark:border-gray-600 pl-4 ml-2"
                             >
                               <div className="flex justify-between items-start mb-2">
-                                <h4 className="text-base font-semibold text-gray-800">
+                                <h4 className="text-base font-semibold text-gray-800 dark:text-gray-200">
                                   {exp.position}
                                 </h4>
-                                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
                                   {exp.duration}
                                 </span>
                               </div>
                               <div className="flex items-center gap-2 mb-2">
-                                <p className="text-gray-600 font-medium text-sm">
+                                <p className="text-gray-600 dark:text-gray-400 font-medium text-sm">
                                   {exp.company}
                                 </p>
                                 {exp.link && (
@@ -254,7 +254,7 @@ export default function About() {
                                   </a>
                                 )}
                               </div>
-                              <p className="text-gray-600 text-xs leading-relaxed mb-2">
+                              <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed mb-2">
                                 {exp.description}
                               </p>
                               <div className="flex flex-wrap gap-1">
@@ -263,7 +263,7 @@ export default function About() {
                                   return (
                                     <span
                                       key={techIndex}
-                                      className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full flex items-center gap-1"
+                                      className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full flex items-center gap-1"
                                     >
                                       {Icon && <Icon size={10} />}
                                       {tech}
@@ -315,7 +315,7 @@ export default function About() {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-12">
             Skills & Technologies
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -326,9 +326,9 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   {skill.category}
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -337,7 +337,7 @@ export default function About() {
                     return (
                       <span
                         key={techIndex}
-                        className="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded-full flex items-center gap-2 hover:bg-amber-200 transition-colors"
+                        className="text-sm bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 px-3 py-2 rounded-full flex items-center gap-2 hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors"
                       >
                         {Icon && <Icon size={16} />}
                         {tech}

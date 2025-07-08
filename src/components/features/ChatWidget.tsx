@@ -31,22 +31,22 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
         code: ({ children, className }) => {
           const isInline = !className;
           return isInline ? (
-            <code className="bg-gray-200 text-gray-800 px-1 py-0.5 rounded text-xs">
+            <code className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-1 py-0.5 rounded text-xs">
               {children}
             </code>
           ) : (
-            <code className="block bg-gray-200 text-gray-800 p-2 rounded text-xs overflow-x-auto">
+            <code className="block bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-2 rounded text-xs overflow-x-auto">
               {children}
             </code>
           );
         },
         pre: ({ children }) => (
-          <pre className="bg-gray-200 p-2 rounded text-xs overflow-x-auto mb-2">
+          <pre className="bg-gray-200 dark:bg-gray-700 p-2 rounded text-xs overflow-x-auto mb-2">
             {children}
           </pre>
         ),
         blockquote: ({ children }) => (
-          <blockquote className="border-l-4 border-amber-500 pl-3 italic text-gray-700 mb-2">
+          <blockquote className="border-l-4 border-amber-500 pl-3 italic text-gray-700 dark:text-gray-300 mb-2">
             {children}
           </blockquote>
         ),
@@ -285,7 +285,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             className={`
-              fixed z-50 flex flex-col bg-white shadow-2xl border border-gray-200
+              fixed z-50 flex flex-col bg-white dark:bg-gray-800 shadow-2xl border border-gray-200 dark:border-gray-700
               ${isExpanded 
                 ? 'inset-4 sm:inset-8 rounded-xl max-w-4xl max-h-[90vh] mx-auto my-auto' 
                 : 'bottom-4 sm:bottom-6 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-8rem)] sm:h-[500px] max-w-sm sm:max-w-none rounded-xl'
@@ -332,8 +332,8 @@ export default function ChatWidget() {
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
               {messages.length === 0 && (
-                <div className="text-center text-gray-500 py-6 sm:py-8">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden bg-gray-200">
+                <div className="text-center text-gray-500 dark:text-gray-400 py-6 sm:py-8">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
                     <Image
                       src="/img/my_ghibily_profile.png"
                       alt="Kritagya Khandelwal"
@@ -370,7 +370,7 @@ export default function ChatWidget() {
                       max-w-[85%] sm:max-w-[80%] p-2 sm:p-3 rounded-lg
                       ${message.isUser
                         ? 'bg-amber-500 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
                       }
                     `}
                   >
@@ -406,7 +406,7 @@ export default function ChatWidget() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="bg-gray-100 p-2 sm:p-3 rounded-lg">
+                  <div className="bg-gray-100 dark:bg-gray-700 p-2 sm:p-3 rounded-lg">
                     <div className="flex space-x-1">
                       <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce"></div>
                       <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -420,7 +420,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Input */}
-            <div className="p-3 sm:p-4 border-t border-gray-200">
+            <div className="p-3 sm:p-4 border-t border-gray-200 dark:border-gray-600">
               <div className="flex gap-2">
                 <input
                   ref={inputRef}
@@ -429,7 +429,7 @@ export default function ChatWidget() {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask me anything..."
-                  className="flex-1 px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+                  className="flex-1 px-2 sm:px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-sm sm:text-base bg-white dark:bg-gray-700"
                   disabled={isLoading}
                 />
                 <button

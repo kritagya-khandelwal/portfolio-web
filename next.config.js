@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'miro.medium.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   experimental: {

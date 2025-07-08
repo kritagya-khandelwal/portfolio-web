@@ -41,6 +41,7 @@ export interface Blog {
   platform: string;
   publishedDate: string;
   readTime?: string;
+  image: string;
   tags: string[];
   featured?: boolean;
 }
@@ -72,4 +73,13 @@ export interface PortfolioData {
   personal: PersonalInfo;
   services: Service[];
   projects: Project[];
+}
+
+export interface Certificate {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  image: string;
+  url: string;
 } 

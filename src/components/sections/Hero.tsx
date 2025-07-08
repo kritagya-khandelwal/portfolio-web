@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowDown, Download, Mail, Github, Linkedin, Instagram, Twitter, Facebook, ExternalLink } from 'lucide-react';
+import { Download, Mail, Github, Linkedin, Instagram, Twitter, Facebook, ExternalLink } from 'lucide-react';
 import { getPersonalInfo } from '@/lib/data';
+import TypewriterEffect from '@/components/ui/TypewriterEffect';
+import AnimatedBackground from '@/components/ui/AnimatedBackground';
 
 // Social platform icon mapping
 const getSocialIcon = (platform: string) => {
@@ -32,16 +34,12 @@ const getSocialIcon = (platform: string) => {
 export default function Hero() {
   const personalInfo = getPersonalInfo();
 
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 via-white to-orange-50 pt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+    <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-16 overflow-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground />
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Text Content */}
           <motion.div
@@ -55,9 +53,16 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                 Hi, I'm{' '}
-                <span className="text-amber-600">{personalInfo.name}</span>
+                <span className="text-amber-600">
+                  <TypewriterEffect 
+                    text={personalInfo.name} 
+                    speed={150} 
+                    delay={1000}
+                    className="text-amber-600"
+                  />
+                </span>
               </h1>
             </motion.div>
 
@@ -67,7 +72,12 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <p className="text-xl sm:text-2xl lg:text-3xl text-amber-600 font-semibold mb-6">
-                {personalInfo.title}
+                <TypewriterEffect 
+                  text={personalInfo.title} 
+                  speed={100} 
+                  delay={2500}
+                  className="text-amber-600"
+                />
               </p>
             </motion.div>
 
@@ -76,7 +86,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                 {personalInfo.about}
               </p>
             </motion.div>
@@ -87,20 +97,26 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
+              {/* Resume Download Button */}
+              {personalInfo.resume && (
+                <a
+                  href={personalInfo.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all duration-300 font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 border-2 border-transparent hover:border-amber-500"
+                >
+                  <Download size={22} />
+                  Download Resume
+                </a>
+              )}
+              
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="inline-flex items-center justify-center gap-2 bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition-colors font-medium text-lg"
+                className="inline-flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-amber-600 dark:text-amber-400 border-2 border-amber-600 dark:border-amber-400 px-8 py-4 rounded-xl hover:bg-amber-600 hover:text-white dark:hover:bg-amber-600 dark:hover:text-white transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                <Mail size={20} />
+                <Mail size={22} />
                 Get In Touch
               </a>
-              <button
-                onClick={scrollToAbout}
-                className="inline-flex items-center justify-center gap-2 border-2 border-amber-600 text-amber-600 px-6 py-3 rounded-lg hover:bg-amber-600 hover:text-white transition-colors font-medium text-lg"
-              >
-                <ArrowDown size={20} />
-                Learn More
-              </button>
             </motion.div>
 
             {/* Social Links */}
@@ -116,11 +132,11 @@ export default function Hero() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-amber-600 transition-colors"
+                  className="text-gray-600 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <span className="sr-only">{social.platform}</span>
-                  <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-amber-100 transition-colors">
+                  <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-amber-100 dark:hover:bg-amber-900/20 transition-colors">
                     {getSocialIcon(social.platform)}
                   </div>
                 </a>
@@ -153,20 +169,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:block"
-        >
-          <button
-            onClick={scrollToAbout}
-            className="text-gray-400 hover:text-amber-600 transition-colors animate-bounce"
-          >
-            <ArrowDown size={24} />
-          </button>
-        </motion.div>
+
       </div>
     </section>
   );

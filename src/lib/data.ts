@@ -27,4 +27,8 @@ export function getFeaturedProjects() {
 
 export function getProjectsByCategory(category: string) {
   return getProjects().filter(project => project.category === category);
+}
+
+export function getCertificates() {
+  return (portfolioData as any).certificates;
 } 

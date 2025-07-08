@@ -58,7 +58,7 @@ export default function Services() {
   const currentServices = services.slice(startIndex, endIndex);
 
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="services" className="py-20 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -67,10 +67,10 @@ export default function Services() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             What I Do
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Specializing in backend development and AI, with expertise across the full stack
           </p>
         </motion.div>
@@ -89,8 +89,8 @@ export default function Services() {
                 className={`
                   p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl
                   ${service.highlight 
-                    ? 'bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-200' 
-                    : 'bg-white border border-gray-200'
+                    ? 'bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/20 dark:to-amber-800/20 border-2 border-amber-200 dark:border-amber-700' 
+                    : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
                   }
                 `}
               >
@@ -99,7 +99,7 @@ export default function Services() {
                     p-3 rounded-lg
                     ${service.highlight 
                       ? 'bg-amber-500 text-white' 
-                      : 'bg-gray-100 text-gray-700'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
                     }
                   `}>
                     {(() => {
@@ -110,12 +110,12 @@ export default function Services() {
                   <div>
                     <h3 className={`
                       text-lg font-bold
-                      ${service.highlight ? 'text-amber-800' : 'text-gray-900'}
+                      ${service.highlight ? 'text-amber-800 dark:text-amber-300' : 'text-gray-900 dark:text-white'}
                     `}>
                       {service.title}
                     </h3>
                     {service.highlight && (
-                      <span className="text-xs font-semibold text-amber-700 bg-amber-200 px-2 py-1 rounded-full">
+                      <span className="text-xs font-semibold text-amber-700 dark:text-amber-300 bg-amber-200 dark:bg-amber-900/30 px-2 py-1 rounded-full">
                         Specialized
                       </span>
                     )}
@@ -123,7 +123,7 @@ export default function Services() {
                 </div>
                 <p className={`
                   text-sm leading-relaxed
-                  ${service.highlight ? 'text-amber-900' : 'text-gray-600'}
+                  ${service.highlight ? 'text-amber-900 dark:text-amber-200' : 'text-gray-600 dark:text-gray-300'}
                 `}>
                   {service.description}
                 </p>
@@ -146,8 +146,8 @@ export default function Services() {
                     className={`
                       p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1
                       ${service.highlight 
-                        ? 'bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-200' 
-                        : 'bg-white border border-gray-200'
+                        ? 'bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/20 dark:to-amber-800/20 border-2 border-amber-200 dark:border-amber-700' 
+                        : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
                       }
                     `}
                   >
@@ -156,7 +156,7 @@ export default function Services() {
                         p-4 rounded-xl
                         ${service.highlight 
                           ? 'bg-amber-500 text-white' 
-                          : 'bg-gray-100 text-gray-700'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
                         }
                       `}>
                         {(() => {
@@ -167,12 +167,12 @@ export default function Services() {
                       <div>
                         <h3 className={`
                           text-xl font-bold mb-2
-                          ${service.highlight ? 'text-amber-800' : 'text-gray-900'}
+                          ${service.highlight ? 'text-amber-800 dark:text-amber-300' : 'text-gray-900 dark:text-white'}
                         `}>
                           {service.title}
                         </h3>
                         {service.highlight && (
-                          <span className="text-xs font-semibold text-amber-700 bg-amber-200 px-3 py-1 rounded-full">
+                          <span className="text-xs font-semibold text-amber-700 dark:text-amber-300 bg-amber-200 dark:bg-amber-900/30 px-3 py-1 rounded-full">
                             Specialized
                           </span>
                         )}
@@ -180,7 +180,7 @@ export default function Services() {
                     </div>
                     <p className={`
                       text-base leading-relaxed
-                      ${service.highlight ? 'text-amber-900' : 'text-gray-600'}
+                      ${service.highlight ? 'text-amber-900 dark:text-amber-200' : 'text-gray-600 dark:text-gray-300'}
                     `}>
                       {service.description}
                     </p>
@@ -195,7 +195,7 @@ export default function Services() {
                 <button
                   onClick={prevSlide}
                   disabled={currentIndex === 0}
-                  className="p-3 bg-white border border-gray-300 rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="p-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <ChevronLeft size={20} />
                 </button>
@@ -210,7 +210,7 @@ export default function Services() {
                         w-3 h-3 rounded-full transition-colors
                         ${currentIndex === i 
                           ? 'bg-amber-500' 
-                          : 'bg-gray-300 hover:bg-gray-400'
+                          : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                         }
                       `}
                     />
@@ -220,7 +220,7 @@ export default function Services() {
                 <button
                   onClick={nextSlide}
                   disabled={currentIndex === totalPages - 1}
-                  className="p-3 bg-white border border-gray-300 rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="p-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <ChevronRight size={20} />
                 </button>
@@ -236,12 +236,12 @@ export default function Services() {
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-8 md:p-12">
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl p-8 md:p-12">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                 Featured Service
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-300">
                 Currently showcasing my expertise in
               </p>
             </div>
@@ -262,10 +262,10 @@ export default function Services() {
                   })()}
                 </div>
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-2">
+              <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                 {services[currentIndex].title}
               </h4>
-              <p className="text-gray-700 max-w-2xl mx-auto">
+              <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
                 {services[currentIndex].description}
               </p>
             </motion.div>

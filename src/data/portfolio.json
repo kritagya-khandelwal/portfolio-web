@@ -6,6 +6,7 @@
     "email": "kritagya.0398@gmail.com",
     "phone": "+91 8178638856",
     "location": "India",
+    "resume": "https://drive.google.com/file/d/1ydSBx3cQQCHmzGFat32mUauRVVMkRAk6/view",
     "experience": [
       {
         "id": "yubi",
@@ -288,6 +289,7 @@
       "platform": "Medium",
       "publishedDate": "2024-01-15",
       "readTime": "8 min read",
+      "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*sN4HeDdZwcRGlfVgH3HTMg.png",
       "tags": ["Spring Security", "WebFlux", "SpringBoot", "Reactive Programming", "Java"],
       "featured": true
     },
@@ -299,6 +301,7 @@
       "platform": "Medium",
       "publishedDate": "2025-07-06",
       "readTime": "3 min read",
+      "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*VnGkqSMNnKAcC419OTQusA.png",
       "tags": ["CQRS", "Microservices", "Architecture", "Event Sourcing", "Java"],
       "featured": true
     },
@@ -310,6 +313,7 @@
       "platform": "Medium",
       "publishedDate": "2023-11-10",
       "readTime": "10 min read",
+      "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*sN4HeDdZwcRGlfVgH3HTMg.png",
       "tags": ["GraphQL", "Performance", "Optimization", "Caching", "Monitoring"],
       "featured": false
     },
@@ -321,8 +325,75 @@
       "platform": "Medium",
       "publishedDate": "2023-10-05",
       "readTime": "15 min read",
+      "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*VnGkqSMNnKAcC419OTQusA.png",
       "tags": ["AI", "Neural Networks", "Genetic Algorithms", "Evolution", "Python"],
       "featured": false
+    }
+  ],
+  "certificates": [
+    {
+      "id": "agentic-ai",
+      "title": "The Complete Agentic AI Engineering Course (2025)",
+      "issuer": "Udemy",
+      "date": "June 20, 2025",
+      "image": "/img/certificate-agentic-ai.png",
+      "url": "https://ude.my/UC-8987a7e8-58c1-43d9-9d1c-fbb8fabd02bc"
+    },
+    {
+      "id": "google-kickstart-2022",
+      "title": "Google Kick Start 2022 - Round C",
+      "issuer": "Google Coding Competitions",
+      "date": "May 29, 2022",
+      "image": "/img/certificate-google-kickstart.png",
+      "url": "https://codingcompetitions.withgoogle.com/kickstart/certificate/summary/00000000008caba4"
+    },
+    {
+      "id": "vector-search",
+      "title": "Building AI-Powered Search with MongoDB Vector Search",
+      "issuer": "MongoDB",
+      "date": "June 26, 2025",
+      "image": "/img/certificate-vector-serach.png",
+      "url": "https://www.credly.com/go/8orF3WqT"
+    },
+    {
+      "id": "rag-applications",
+      "title": "Building RAG Apps Using MongoDB",
+      "issuer": "MongoDB",
+      "date": "June 26, 2025",
+      "image": "/img/certificate-rag-applications.png",
+      "url": "https://www.credly.com/go/0PP7pMZ0"
+    },
+    {
+      "id": "llm-engineering",
+      "title": "LLM Engineering: Master AI, Large Language Models & Agents",
+      "issuer": "Udemy",
+      "date": "June 8, 2025",
+      "image": "/img/certificate-llm-engineering.png",
+      "url": "http://ude.my/UC-6b457d1f-c16b-44eb-9048-8bf6021c1523"
+    },
+    {
+      "id": "js-dsa-freecodecamp",
+      "title": "Legacy JavaScript Algorithms and Data Structures",
+      "issuer": "freeCodeCamp",
+      "date": "January 17, 2021",
+      "image": "/img/certificate-js-dsa.png",
+      "url": "https://freecodecamp.org/certification/kritagyakhandelwal/javascript-algorithms-and-data-structures"
+    },
+    {
+      "id": "summer-of-code-iiit-una",
+      "title": "Summer of Code with IIIT Una",
+      "issuer": "Coding Ninjas / IIIT Una",
+      "date": "June 12, 2020",
+      "image": "/img/certificate-summer-of-code.png",
+      "url": "https://ninjasfiles.s3.amazonaws.com/certificate_of_event_summer_of_code_with_iiit_una_-1804190271020638240_1057231.pdf?utm_source=sendinblue&utm_campaign=Coding_Event_certificate_template_5&utm_medium=email"
+    },
+    {
+      "id": "hackerrank-problem-solving",
+      "title": "Problem Solving (Intermediate)",
+      "issuer": "HackerRank",
+      "date": "July 3, 2020",
+      "image": "/img/certificate-hackerrank-problem-solving.png",
+      "url": "https://www.hackerrank.com/certificates/e57ed64cd6d7"
     }
   ]
 } 

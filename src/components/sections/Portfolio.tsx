@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { 
@@ -12,6 +12,7 @@ import {
   Eye
 } from 'lucide-react';
 import { getProjects } from '@/lib/data';
+import VideoModal from '@/components/ui/VideoModal';
 
 const categories = ['All', 'Featured', 'Personal', 'Academic', 'Internship'];
 
@@ -19,6 +20,23 @@ export default function Portfolio() {
   const projects = getProjects();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [videoModal, setVideoModal] = useState<{ isOpen: boolean; videoUrl: string; title: string }>({
+    isOpen: false,
+    videoUrl: '',
+    title: ''
+  });
+
+  // Open project modal if ?project=... is present in URL
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      const projectId = url.searchParams.get('project');
+      if (projectId) {
+        const project = projects.find(p => p.id === projectId);
+        if (project) setSelectedProject(project);
+      }
+    }
+  }, [projects]);
 
   const filteredProjects = projects.filter(project => {
     if (selectedCategory === 'All') return true;
@@ -28,14 +46,29 @@ export default function Portfolio() {
 
   const handleProjectClick = (project: typeof projects[0]) => {
     setSelectedProject(project);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.set('project', project.id);
+      window.history.replaceState({}, '', url.toString());
+    }
   };
 
   const closeModal = () => {
     setSelectedProject(null);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('project');
+      window.history.replaceState({}, '', url.pathname + url.search);
+    }
+  };
+
+  const handleVideoDemo = (e: React.MouseEvent, videoUrl: string, title: string) => {
+    e.stopPropagation();
+    setVideoModal({ isOpen: true, videoUrl, title });
   };
 
   return (
-    <section id="portfolio" className="py-20 bg-gray-50">
+    <section id="portfolio" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,10 +77,10 @@ export default function Portfolio() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             My Work
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             A collection of projects showcasing my skills and experience
           </p>
         </motion.div>
@@ -68,7 +101,7 @@ export default function Portfolio() {
                 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-200 text-sm sm:text-base
                 ${selectedCategory === category
                   ? 'bg-amber-500 text-white shadow-lg'
-                  : 'bg-white text-gray-700 hover:bg-amber-50 hover:text-amber-700'
+                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-700 dark:hover:text-amber-400'
                 }
               `}
             >
@@ -121,28 +154,37 @@ export default function Portfolio() {
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Eye size={32} className="text-white" />
+                      {project.demo && project.demo.includes('youtu') ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
+                            <Play size={20} className="text-white ml-1" />
+                          </div>
+                          <span className="text-white font-medium text-sm">Watch Demo</span>
+                        </div>
+                      ) : (
+                        <Eye size={32} className="text-white" />
+                      )}
                     </div>
                   </div>
                 </div>
 
                 {/* Project Info */}
-                <div className="p-6 bg-white">
+                <div className="p-6 bg-white dark:bg-gray-800">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className={`
                       text-xl font-bold mb-2
-                      ${project.featured ? 'text-amber-800' : 'text-gray-900'}
+                      ${project.featured ? 'text-amber-800 dark:text-amber-300' : 'text-gray-900 dark:text-white'}
                     `}>
                       {project.title}
                     </h3>
                     {project.featured && (
-                      <span className="text-xs font-semibold text-amber-700 bg-amber-100 px-2 py-1 rounded-full">
+                      <span className="text-xs font-semibold text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/30 px-2 py-1 rounded-full">
                         Featured
                       </span>
                     )}
                   </div>
                   
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                     {project.subtitle}
                   </p>
 
@@ -153,17 +195,17 @@ export default function Portfolio() {
                         key={techIndex}
                         className={`
                           text-xs px-2 py-1 rounded-full
-                          ${project.featured 
-                            ? 'bg-amber-100 text-amber-800' 
-                            : 'bg-gray-100 text-gray-700'
-                          }
+                                                  ${project.featured 
+                          ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300' 
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                        }
                         `}
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span className="text-xs text-gray-500">
+                                              <span className="text-xs text-gray-500 dark:text-gray-400">
                         +{project.technologies.length - 3} more
                       </span>
                     )}
@@ -177,23 +219,33 @@ export default function Portfolio() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
                       >
                         <Github size={16} />
                         Code
                       </a>
                     )}
                     {project.demo && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors text-sm"
-                      >
-                        <Play size={16} />
-                        Demo
-                      </a>
+                      project.demo.includes('youtu') ? (
+                        <button
+                          onClick={(e) => handleVideoDemo(e, project.demo!, project.title)}
+                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors text-sm"
+                        >
+                          <Play size={16} />
+                          Demo
+                        </button>
+                      ) : (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors text-sm"
+                        >
+                          <Play size={16} />
+                          Demo
+                        </a>
+                      )
                     )}
                     {project.pdf && (
                       <a
@@ -228,7 +280,7 @@ export default function Portfolio() {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                className="bg-white dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative">
@@ -241,7 +293,7 @@ export default function Portfolio() {
                   />
                   <button
                     onClick={closeModal}
-                    className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors"
+                    className="absolute top-4 right-4 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                   >
                     <span className="text-2xl">×</span>
                   </button>
@@ -249,11 +301,11 @@ export default function Portfolio() {
 
                 <div className="p-8">
                   <div className="flex items-start justify-between mb-4">
-                    <h2 className="text-3xl font-bold text-gray-900">
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                       {selectedProject.title}
                     </h2>
                     {selectedProject.featured && (
-                      <span className="text-sm font-semibold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">
+                      <span className="text-sm font-semibold text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/30 px-3 py-1 rounded-full">
                         Featured Project
                       </span>
                     )}
@@ -263,19 +315,19 @@ export default function Portfolio() {
                     {selectedProject.subtitle}
                   </p>
                   
-                  <p className="text-gray-700 leading-relaxed mb-6">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                     {selectedProject.description}
                   </p>
 
                   <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                       Technologies Used
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.technologies.map((tech, index) => (
                         <span
                           key={index}
-                          className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm"
+                          className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 rounded-full text-sm"
                         >
                           {tech}
                         </span>
@@ -296,15 +348,25 @@ export default function Portfolio() {
                       </a>
                     )}
                     {selectedProject.demo && (
-                      <a
-                        href={selectedProject.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-6 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors"
-                      >
-                        <Play size={20} />
-                        Live Demo
-                      </a>
+                      selectedProject.demo.includes('youtu') ? (
+                        <button
+                          onClick={() => setVideoModal({ isOpen: true, videoUrl: selectedProject.demo!, title: selectedProject.title })}
+                          className="flex items-center gap-2 px-6 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors"
+                        >
+                          <Play size={20} />
+                          Watch Demo
+                        </button>
+                      ) : (
+                        <a
+                          href={selectedProject.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-6 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors"
+                        >
+                          <Play size={20} />
+                          Live Demo
+                        </a>
+                      )
                     )}
                     {selectedProject.pdf && (
                       <a
@@ -334,6 +396,14 @@ export default function Portfolio() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Video Modal */}
+        <VideoModal
+          isOpen={videoModal.isOpen}
+          onClose={() => setVideoModal({ isOpen: false, videoUrl: '', title: '' })}
+          videoUrl={videoModal.videoUrl}
+          title={videoModal.title}
+        />
       </div>
     </section>
   );
