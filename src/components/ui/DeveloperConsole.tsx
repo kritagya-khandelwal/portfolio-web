@@ -23,10 +23,23 @@ export default function DeveloperConsole() {
   const [previousCommands, setPreviousCommands] = useState<string[]>([]);
   const [currentGame, setCurrentGame] = useState<string | null>(null);
   const [consoleTheme, setConsoleTheme] = useState<'terminal' | 'retro'>('terminal');
+  const [isClient, setIsClient] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const consoleRef = useRef<HTMLDivElement>(null);
   const projects = getProjects();
   const { theme, setTheme, resolvedTheme } = useTheme();
+
+  useEffect(() => { setIsClient(true); }, []);
+
+  const BOX_WIDTH = 62; // total width including borders
+  const CONTENT_WIDTH = BOX_WIDTH - 2; // 60
+
+  // Helper function to format ASCII box lines with consistent width
+  const formatBoxLine = (content: string, width: number = CONTENT_WIDTH) => {
+    // Left-align: one space after the border, then text, then pad right
+    const line = `║ ${content}`;
+    return line.padEnd(BOX_WIDTH - 1, ' ') + '║';
+  };
 
   // Keyboard shortcut detection
   useEffect(() => {
@@ -328,91 +341,24 @@ Featured: ${project.featured ? 'Yes' : 'No'}`;
                }`}
              >
               {/* Welcome Message */}
-              {commandHistory.length === 0 && (
-                <div className="mb-4">
-                  <div className={`mb-2 ${
-                    consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                  }`}>
-                    ╔══════════════════════════════════════════════════════════════╗
-                  </div>
-                  <div className={`mb-2 ${
-                    consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                  }`}>
-                    ║                    KRITAGYA'S PORTFOLIO v2.0                ║
-                  </div>
-                  <div className={`mb-2 ${
-                    consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                  }`}>
-                    ║                    ================================          ║
-                  </div>
-                  <div className={`mb-2 ${
-                    consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                  }`}>
-                    ║                                                              ║
-                  </div>
-                  <div className={`mb-2 ${
-                    consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                  }`}>
-                    ║  System Information:                                         ║
-                  </div>
-                  {(() => {
-                    const sysInfo = getSystemInfo();
-                    return (
-                      <>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║  • OS: {sysInfo.os}                                     ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║  • Browser: {sysInfo.browser}                           ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║  • Screen: {sysInfo.screen}                             ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║  • Theme: {sysInfo.theme}                               ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║  • Time: {sysInfo.time}                                 ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║                                                              ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║  Available Commands: help, whoami, ls, cat, clear, exit     ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║  Navigation: ↑/↓ arrows for command history, ESC to close  ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ║                                                              ║
-                        </div>
-                        <div className={`mb-2 ${
-                          consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'
-                        }`}>
-                          ╚══════════════════════════════════════════════════════════════╝
-                        </div>
-                      </>
-                    );
-                  })()}
-                </div>
+              {isClient && commandHistory.length === 0 && (
+                <pre className={`mb-4 font-mono text-sm overflow-x-auto max-w-full ${consoleTheme === 'terminal' ? 'text-green-300' : 'text-amber-300'}`}>{`
+╔${'═'.repeat(CONTENT_WIDTH)}╗
+${formatBoxLine('KRITAGYA\'S PORTFOLIO v2.0')}
+${formatBoxLine('================================')}
+${formatBoxLine('')}
+${formatBoxLine('System Information:')}
+${formatBoxLine(`• OS: ${getSystemInfo().os}`)}
+${formatBoxLine(`• Browser: ${getSystemInfo().browser}`)}
+${formatBoxLine(`• Screen: ${getSystemInfo().screen}`)}
+${formatBoxLine(`• Theme: ${getSystemInfo().theme}`)}
+${formatBoxLine(`• Time: ${getSystemInfo().time}`)}
+${formatBoxLine('')}
+${formatBoxLine('Available Commands: help, whoami, ls, cat, clear, exit')}
+${formatBoxLine('Navigation: ↑/↓ arrows for command history, ESC to close')}
+${formatBoxLine('')}
+╚${'═'.repeat(CONTENT_WIDTH)}╝`}
+  </pre>
               )}
 
                              {/* Command History */}

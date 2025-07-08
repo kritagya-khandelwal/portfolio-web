@@ -8,7 +8,9 @@ import BlogsWrapper from '@/components/sections/BlogsWrapper';
 import Footer from '@/components/layout/Footer';
 import ChatWidget from '@/components/features/ChatWidget';
 import FloatingSocialLinksWrapper from '@/components/ui/FloatingSocialLinksWrapper';
-import DeveloperConsole from '@/components/ui/DeveloperConsole';
+import dynamic from 'next/dynamic';
+
+const DeveloperConsole = dynamic(() => import('@/components/ui/DeveloperConsole'), { ssr: false });
 
 export default function Home() {
   return (
