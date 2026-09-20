@@ -13,8 +13,8 @@
         "company": "Yubi",
         "position": "Senior Software Engineer",
         "duration": "July 2022 - Present",
-        "description": "Mentor and build microservices from the ground up using Java, Springboot, Elasticsearch, MongoDB, Temporal, and Kafka. Implemented CQRS flow and adopted GraphQL as the API architecture. Optimized Homepage load time by 5x by introducing GraphQL and reactive/async programming in backend reducing network calls and latency.",
-        "technologies": ["Java", "Springboot", "Elasticsearch", "MongoDB", "Temporal", "Kafka", "GraphQL"],
+        "description": "Started as a Software Engineer in 2022 and grew into a Senior role in 2023, building Yubi's Marketplace and Loan Operating System as microservices. Cut homepage latency by 5x with a CQRS setup and GraphQL aggregation, and brought loan filtering from 3000ms down to 350ms (P95). Also built a Context Graph layer for agentic systems that made production debugging 3x faster, plus reusable engines like the Bulk Framework and Data Collator that now power 10+ services across 3 teams.",
+        "technologies": ["Java", "Springboot", "Kafka", "Temporal", "MongoDB", "Elasticsearch", "GraphQL", "CQRS", "Agentic AI", "Context Graph", "LangGraph", "Claude Code"],
         "link": "https://go-yubi.com",
         "type": "full-time"
       },
@@ -22,8 +22,8 @@
         "id": "314e",
         "company": "314e",
         "position": "Software Engineer",
-        "duration": "June 2021 - July 2022",
-        "description": "Developed backend APIs using FastAPI (Python) and PostgreSQL; handled message queuing with RabbitMQ. Automated accessibility validation on auto-generated webpages using DOM & CSSOM parsing with Python.",
+        "duration": "June 2021 - June 2022",
+        "description": "Built backend services with FastAPI, PostgreSQL and RabbitMQ, and secured the product with OAuth 2.0 and RBAC. Also automated accessibility validation for auto-generated web pages by traversing DOM and CSSOM trees in Python.",
         "technologies": ["Python", "FastAPI", "PostgreSQL", "RabbitMQ", "OAuth 2.0", "RBAC"],
         "link": "https://www.314e.com",
         "type": "full-time"
