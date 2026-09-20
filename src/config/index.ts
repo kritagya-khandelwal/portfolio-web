@@ -13,7 +13,7 @@ export const config = {
   
   // Feature Flags
   features: {
-    chat: true,
+    chat: false, // set to true once the chat backend is fully functional
     analytics: !!process.env.NEXT_PUBLIC_GA_ID,
   }
 }; 

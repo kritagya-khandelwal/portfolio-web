@@ -9,6 +9,7 @@ import Footer from '@/components/layout/Footer';
 import ChatWidget from '@/components/features/ChatWidget';
 import FloatingSocialLinksWrapper from '@/components/ui/FloatingSocialLinksWrapper';
 import dynamic from 'next/dynamic';
+import { config } from '@/config';
 
 const DeveloperConsole = dynamic(() => import('@/components/ui/DeveloperConsole'), { ssr: false });
 
@@ -23,7 +24,7 @@ export default function Home() {
       <Certificates />
       <BlogsWrapper />
       <Footer />
-      <ChatWidget />
+      {config.features.chat && <ChatWidget />}
       <FloatingSocialLinksWrapper />
       <DeveloperConsole />
     </main>

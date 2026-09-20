@@ -2,7 +2,7 @@
   "personal": {
     "name": "Kritagya Khandelwal",
     "title": "Software Engineer",
-    "about": "I am currently working in Indian Fintech Unicorn, Yubi. I have contributed to build Yubi's marketplace, I was part of the core team to build the BRE for Yubi. I am a firm believer of self-written quote \"Evolution is randomness seeking betterment\" and therefore often found thinking about unprecedented possibilities.",
+    "about": "Software Engineer with expertise in Java, Python, Spring Boot, and distributed systems, currently building scalable backend platforms at a fintech unicorn, Yubi. Core contributor to the development of Yubi’s marketplace and Loan Operating System. Also, working on Agentic Layers for Orgwide AI Integration. I am a firm believer of self-written quote \"Evolution is randomness seeking betterment\" and therefore often found thinking about unprecedented possibilities.",
     "email": "kritagya.0398@gmail.com",
     "phone": "+91 8178638856",
     "location": "India",
@@ -68,7 +68,7 @@
       },
       {
         "category": "Artificial Intelligence",
-        "technologies": ["FastMCP", "LangGraph", "Neural Networks", "Genetic Algorithm"]
+        "technologies": ["FastMCP", "LangGraph", "Neural Networks", "Genetic Algorithm", "Claude Code", "Agentic AI"]
       },
       {
         "category": "Databases & Messaging",
@@ -294,6 +294,18 @@
       "featured": true
     },
     {
+      "id": "design-patterns-strategy",
+      "title": "Stop If-Else Chaos: Use the Strategy Pattern Instead",
+      "description": "This blog explores the Strategy Design Pattern through a practical, problem-driven approach. Starting from a naive if-else implementation, we progressively refactor it into a modular, extensible design using strategies—backed by clear Java code examples and real-world scenarios.",
+      "url": "https://medium.com/@kritagya.0398/stop-if-else-chaos-use-the-strategy-pattern-instead-b9e7b02f84f5",
+      "platform": "Medium",
+      "publishedDate": "2026-04-24",
+      "readTime": "4 min read",
+      "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*htnDWtDI_R8RdEBvKUJatQ.png",
+      "tags": ["Strategy Design Pattern", "LLD", "Clean Code", "Java"],
+      "featured": true
+    },
+    {
       "id": "microservices-cqrs",
       "title": "CRUD to CQRS: Evolving Your System Design for Fast Reads",
       "description": "Deep dive into Command Query Responsibility Segregation (CQRS) pattern implementation in microservices, with practical examples and performance considerations.",
@@ -304,30 +316,6 @@
       "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*VnGkqSMNnKAcC419OTQusA.png",
       "tags": ["CQRS", "Microservices", "Architecture", "Event Sourcing", "Java"],
       "featured": true
-    },
-    {
-      "id": "graphql-optimization",
-      "title": "Optimizing GraphQL Performance in Production",
-      "description": "Practical strategies for optimizing GraphQL performance in production environments, including query optimization, caching strategies, and monitoring.",
-      "url": "https://medium.com/@kritagya.0398/optimizing-graphql-performance-in-production",
-      "platform": "Medium",
-      "publishedDate": "2023-11-10",
-      "readTime": "10 min read",
-      "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*sN4HeDdZwcRGlfVgH3HTMg.png",
-      "tags": ["GraphQL", "Performance", "Optimization", "Caching", "Monitoring"],
-      "featured": false
-    },
-    {
-      "id": "ai-evolution-simulation",
-      "title": "Simulating Evolution with Neural Networks and Genetic Algorithms",
-      "description": "Exploring the intersection of AI and biology through the simulation of ant evolution using neural networks and genetic algorithms.",
-      "url": "https://medium.com/@kritagya.0398/simulating-evolution-with-neural-networks-and-genetic-algorithms",
-      "platform": "Medium",
-      "publishedDate": "2023-10-05",
-      "readTime": "15 min read",
-      "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*VnGkqSMNnKAcC419OTQusA.png",
-      "tags": ["AI", "Neural Networks", "Genetic Algorithms", "Evolution", "Python"],
-      "featured": false
     }
   ],
   "certificates": [
