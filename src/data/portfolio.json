@@ -9,12 +9,22 @@
     "resume": "https://drive.google.com/file/d/1ydSBx3cQQCHmzGFat32mUauRVVMkRAk6/view",
     "experience": [
       {
-        "id": "yubi",
+        "id": "yubi-sse",
         "company": "Yubi",
         "position": "Senior Software Engineer",
-        "duration": "July 2022 - Present",
-        "description": "Started as a Software Engineer in 2022 and grew into a Senior role in 2023, building Yubi's Marketplace and Loan Operating System as microservices. Cut homepage latency by 5x with a CQRS setup and GraphQL aggregation, and brought loan filtering from 3000ms down to 350ms (P95). Also built a Context Graph layer for agentic systems that made production debugging 3x faster, plus reusable engines like the Bulk Framework and Data Collator that now power 10+ services across 3 teams.",
-        "technologies": ["Java", "Springboot", "Kafka", "Temporal", "MongoDB", "Elasticsearch", "GraphQL", "CQRS", "Agentic AI", "Context Graph", "LangGraph", "Claude Code"],
+        "duration": "Oct 2023 - Present",
+        "description": "Now leading the platform side of things. Built a Context Graph layer that powers our agentic systems and made production debugging 3x faster. Designed a Bulk Framework that runs multi-million CSV requests reliably on Temporal, and a Data Collator aggregation engine that crunches millions of rows across 25+ microservices. Also re-engineered loan filtering from 3000ms to 350ms (P95), unblocking same-day processing for 10k+ loans. Bulk Framework and Data Collator now power 10+ services across 3 teams, and I run internal tech talks to spread the practices behind them.",
+        "technologies": ["Java", "Springboot", "Temporal", "Kafka", "MongoDB", "Elasticsearch", "Agentic AI", "Context Graph", "LangGraph", "Claude Code"],
+        "link": "https://go-yubi.com",
+        "type": "full-time"
+      },
+      {
+        "id": "yubi-se",
+        "company": "Yubi",
+        "position": "Software Engineer",
+        "duration": "July 2022 - Sep 2023",
+        "description": "Joined to build Yubi's Marketplace and Loan Operating System as microservices. Cut homepage latency by 5x with a CQRS setup and GraphQL aggregation.",
+        "technologies": ["Java", "Springboot", "Kafka", "MongoDB", "Elasticsearch", "GraphQL", "CQRS"],
         "link": "https://go-yubi.com",
         "type": "full-time"
       },
